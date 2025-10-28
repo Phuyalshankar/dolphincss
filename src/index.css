@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@theme {
+  /* 🌞 Light Theme Defaults (Optimized Text) */
+  --color-primary: oklch(60% 0.09 210);
+  --color-secondary: oklch(65% 0.12 280);
+  --color-success: oklch(70% 0.13 150);
+  --color-warning: oklch(85% 0.15 75);
+  --color-danger: oklch(75% 0.15 25);
+  --color-info: oklch(80% 0.11 250);
+  --color-surface: oklch(98% 0.02 210); /* very light background */
+  --color-text: oklch(15% 0.02 210);    /* darker than before for readability */
+  --color-border: oklch(85% 0.03 210);  /* slightly darker than surface */
+}
+
+
+/* 🌚 Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: oklch(70% 0.09 210);
+    --color-secondary: oklch(70% 0.12 280);
+    --color-success: oklch(75% 0.13 150);
+    --color-warning: oklch(85% 0.15 75);
+    --color-danger: oklch(75% 0.15 25);
+    --color-info: oklch(80% 0.11 250);
+    --color-surface: oklch(20% 0.02 210);
+    --color-text: oklch(95% 0.01 210);
+    --color-border: oklch(40% 0.05 210);
+  }
+}
