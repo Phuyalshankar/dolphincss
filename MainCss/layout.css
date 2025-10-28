@@ -1,0 +1,32 @@
+
+  /* ===== Layout System ===== */
+  @layer components {
+  .row { @apply flex flex-wrap gap-4; }
+  .col { @apply flex-1 min-w-[200px]; }
+  .col-1 { @apply flex-[1_1_8%]; }
+  .col-2 { @apply flex-[1_1_16%]; }
+  .col-3 { @apply flex-[1_1_25%]; }
+  .col-4 { @apply flex-[1_1_33%]; }
+  .col-5 { @apply flex-[1_1_41%]; }
+  .col-6 { @apply flex-[1_1_50%]; }
+  .col-7 { @apply flex-[1_1_58%]; }
+  .col-8 { @apply flex-[1_1_66%]; }
+  .col-9 { @apply flex-[1_1_75%]; }
+  .col-10 { @apply flex-[1_1_83%]; }
+  .col-11 { @apply flex-[1_1_91%]; }
+  .col-12 { @apply flex-[1_1_100%]; }
+  @media (max-width: 1024px) {
+    .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+    .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { @apply flex-[1_1_45%]; }
+  }
+  @media (max-width: 768px) {
+    .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+    .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { @apply flex-[1_1_100%]; }
+  }
+  .gap-0 { @apply gap-0; }
+  .gap-1 { @apply gap-1; }
+  .gap-2 { @apply gap-2; }
+  .gap-3 { @apply gap-3; }
+  .gap-4 { @apply gap-4; }
+  .gap-5 { @apply gap-5; }
+  }

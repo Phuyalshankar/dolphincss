@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Colors - Sea Blue */
+  --color-primary: oklch(55% 0.12 200); /* light sea blue */
+  --color-primary-dark: oklch(45% 0.14 200);
+  --color-secondary: oklch(60% 0.08 190); /* turquoise-ish */
+
+  /* Semantic Colors - Ocean Inspired */
+  --color-success: oklch(65% 0.12 160); /* sea green */
+  --color-warning: oklch(75% 0.15 80);  /* coral-ish */
+  --color-danger: oklch(60% 0.15 10);   /* reddish coral */
+  --color-info: oklch(70% 0.10 220);    /* sky blue */
+
+  /* Neutral Colors */
+  --color-surface: oklch(96% 0.01 210); /* almost white sand */
+  --color-text: oklch(22% 0.03 210);    /* deep ocean text */
+  --color-text-muted: oklch(45% 0.04 210); /* slightly softer but readable */
+  --color-border: oklch(85% 0.02 210);
+  --color-shadow: oklch(0% 0 0 / 0.2);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  --gradient-success: linear-gradient(135deg, var(--color-success), oklch(60% 0.12 160));
+  --gradient-warning: linear-gradient(135deg, var(--color-warning), oklch(70% 0.15 80));
+  --gradient-danger: linear-gradient(135deg, var(--color-danger), oklch(55% 0.15 10));
+  --gradient-info: linear-gradient(135deg, var(--color-info), oklch(65% 0.11 220));
+
+  /* ===== Dolphin Specific Utility Classes ===== */
+.dolphin-glow { box-shadow: var(--glow-primary); }
+.dolphin-glow-success { box-shadow: var(--glow-success); }
+.dolphin-glow-warning { box-shadow: var(--glow-warning); }
+.dolphin-glow-danger { box-shadow: var(--glow-danger); }
+.dolphin-glow-info { box-shadow: var(--glow-info); }
+.dolphin-glow-secondary { box-shadow: var(--glow-secondary); }
+
+.ocean-gradient { background: var(--gradient-ocean); }
+.dolphin-gradient { background: var(--gradient-primary); }
+.sea-foam { background-color: var(--color-surface); }
+.deep-ocean { background-color: var(--color-surface-alt); }
+}
+
+[data-theme="dark"] {
+  /* Primary Colors */
+  --color-primary: oklch(45% 0.12 200); /* darker sea blue */
+  --color-primary-dark: oklch(35% 0.14 200);
+  --color-secondary: oklch(48% 0.08 190);
+
+  /* Semantic Colors */
+  --color-success: oklch(55% 0.12 160);
+  --color-warning: oklch(65% 0.15 80);
+  --color-danger: oklch(55% 0.15 10);
+  --color-info: oklch(60% 0.10 220);
+
+  /* Neutral Colors */
+  --color-surface: oklch(18% 0.02 210); /* dark ocean */
+  --color-text: oklch(98% 0 0); /* almost pure white text */
+  --color-text-muted: oklch(80% 0.02 210); /* dimmer, still visible */
+  --color-border: oklch(35% 0.03 210);
+  --color-shadow: oklch(0% 0 0 / 0.35);
+}

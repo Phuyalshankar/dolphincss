@@ -1,0 +1,13 @@
+
+  /* ===== Gradient Background ===== */
+  @layer components {
+  .gradient-bg {
+    @apply transition-all duration-500 rounded-md bg-no-repeat text-(--color-text);
+    background-size: 200% 200%;
+  }
+  .gradient-bg.primary { background-image: var(--gradient-primary) !important; }
+  .gradient-bg.success { background-image: var(--gradient-success) !important; }
+  .gradient-bg.warning { background-image: var(--gradient-warning) !important; }
+  .gradient-bg.danger { background-image: var(--gradient-danger) !important; }
+  .gradient-bg.info { background-image: var(--gradient-info) !important; }
+  }
