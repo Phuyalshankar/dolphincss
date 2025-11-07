@@ -1,0 +1,17 @@
+/* ===== Card System ===== */
+@layer components { 
+.card {
+    @apply rounded-md shadow-md p-4 transition-all duration-200 bg-(--color-surface) text-(--color-text);
+  }
+  .card.primary { background-color: var(--color-primary); color: var(--color-text); }
+  .card.secondary { background-color: var(--color-secondary); color: var(--color-text); }
+  .card.success { background-color: var(--color-success); color: var(--color-text); }
+  .card.warning { background-color: var(--color-warning); color: var(--color-text); }
+  .card.danger { background-color: var(--color-danger); color: var(--color-text); }
+  .card.info { background-color: var(--color-info); color: var(--color-text); }
+  .card.gradient.primary { background-image: var(--gradient-primary); color: var(--color-text); }
+  .card.gradient.success { background-image: var(--gradient-success); color: var(--color-text); }
+  .card.gradient.warning { background-image: var(--gradient-warning); color: var(--color-text); }
+  .card.gradient.danger { background-image: var(--gradient-danger); color: var(--color-text); }
+  .card.gradient.info { background-image: var(--gradient-info); color: var(--color-text); }
+}

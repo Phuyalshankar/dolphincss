@@ -1,0 +1,74 @@
+/* ============================
+   🌊 DolphinCSS Motion System
+   ✅ Works with: filled, primary, circle, glow, etc.
+   ✅ Tailwind v4 Compatible
+   ============================ */
+
+@keyframes hover-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+@keyframes gentle-wave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes dolphin-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@theme {
+  --motion-speed: 600ms;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Motion Classes ===== */
+@layer utilities {
+  .motion { transition: all var(--motion-speed) var(--motion-ease); }
+
+  /* Hover pulse effect */
+  .hover-pulse:hover {
+    animation: hover-pulse 0.8s var(--motion-ease) both;
+  }
+
+  /* Continuous gentle float (for icons, buttons, cards) */
+  .float {
+    animation: dolphin-float 3s ease-in-out infinite;
+  }
+
+  /* Soft wave hover */
+  .hover-wave:hover {
+    animation: gentle-wave 0.7s ease-in-out both;
+  }
+
+  /* Slow spin (for loaders / refresh buttons) */
+  .spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
+
+  /* Entry animations */
+  .fade-in {
+    animation: fade-in 0.6s var(--motion-ease) both;
+  }
+
+  .slide-up {
+    animation: slide-up 0.6s var(--motion-ease) both;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slide-up {
+    from { transform: translateY(25px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+}

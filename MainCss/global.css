@@ -1,0 +1,249 @@
+/* ===== Button Variants ===== */
+@layer components {
+  .filled {
+    @apply font-medium rounded-md inline-flex items-center justify-center select-none transition-all duration-200;
+  }
+  .outlined {
+    @apply border rounded-md bg-transparent inline-flex items-center justify-center select-none transition-all duration-200;
+  }
+  .plain {
+    @apply bg-transparent inline-flex items-center justify-center select-none transition-all duration-200;
+  }
+
+  /* ===== Button Colors ===== */
+  .primary.filled { background-color: var(--color-primary); color: var(--color-text) !important; }
+  .primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text) !important; }
+  .primary.plain { color: var(--color-text) !important; }
+
+  .secondary.filled { background-color: var(--color-secondary); color: var(--color-text) !important; }
+  .secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text) !important; }
+  .secondary.plain { color: var(--color-text) !important; }
+
+  .success.filled { background-color: var(--color-success); color: var(--color-text) !important; }
+  .success.outlined { border: 2px solid var(--color-success); color: var(--color-text) !important; }
+  .success.plain { color: var(--color-text) !important; }
+
+  .warning.filled { background-color: var(--color-warning); color: var(--color-text) !important; }
+  .warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text) !important; }
+  .warning.plain { color: var(--color-text) !important; }
+
+  .danger.filled { background-color: var(--color-danger); color: var(--color-text) !important; }
+  .danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text) !important; }
+  .danger.plain { color: var(--color-text) !important; }
+
+  .info.filled { background-color: var(--color-info); color: var(--color-text) !important; }
+  .info.outlined { border: 2px solid var(--color-info); color: var(--color-text) !important; }
+  .info.plain { color: var(--color-text) !important; }
+
+  /* Button Hover/Focus/Disabled */
+  .filled:hover, .outlined:hover, .plain:hover { opacity: 0.9; }
+
+  /* Remove Tailwind ring to prevent double ring */
+  .filled:focus-visible,
+  .outlined:focus-visible,
+  .plain:focus-visible {
+    outline: 2px solid var(--color-border);
+    outline-offset: 2px;
+    box-shadow: none; /* no glow */
+  }
+
+  .filled:disabled,
+  .outlined:disabled,
+  .plain:disabled {
+    @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
+
+  /* ===== Circle Buttons ===== */
+  .circle {
+    @apply rounded-full shadow-md hover:shadow-lg inline-flex items-center justify-center select-none transition-shadow duration-200 cursor-pointer;
+    background-color: transparent;
+    color: var(--color-text);
+  }
+
+  .circle.sm { @apply w-8 h-8 text-sm; }
+  .circle.md { @apply w-12 h-12 text-base; }
+  .circle.lg { @apply w-16 h-16 text-lg; }
+
+  .circle.primary.filled { background-color: var(--color-primary); color: var(--color-text) !important; }
+  .circle.secondary.filled { background-color: var(--color-secondary); color: var(--color-text) !important; }
+  .circle.success.filled { background-color: var(--color-success); color: var(--color-text) !important; }
+  .circle.warning.filled { background-color: var(--color-warning); color: var(--color-text) !important; }
+  .circle.danger.filled { background-color: var(--color-danger); color: var(--color-text) !important; }
+  .circle.info.filled { background-color: var(--color-info); color: var(--color-text) !important; }
+
+  .circle.primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text) !important; }
+  .circle.secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text) !important; }
+  .circle.success.outlined { border: 2px solid var(--color-success); color: var(--color-text) !important; }
+  .circle.warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text) !important; }
+  .circle.danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text) !important; }
+  .circle.info.outlined { border: 2px solid var(--color-info); color: var(--color-text) !important; }
+
+  .circle.primary.plain,
+  .circle.secondary.plain,
+  .circle.success.plain,
+  .circle.warning.plain,
+  .circle.danger.plain,
+  .circle.info.plain {
+    background-color: transparent;
+    color: var(--color-text) !important;
+  }
+
+  .circle:hover { opacity: 0.9; }
+  .circle:disabled { @apply opacity-50 cursor-not-allowed pointer-events-none; }
+}
+/* ===== Global Glowing Effects (Fixed) ===== */
+.glow {
+  @apply transition-all duration-300;
+}
+
+/* Base glow effects for all glow elements */
+.glow:hover {
+  box-shadow: var(--glow-primary);
+}
+
+/* Specific elements with enhanced glow */
+.glow.btn:hover,
+.glow[class*="btn"]:hover {
+  box-shadow: 0 0 20px 5px var(--glow-color, var(--color-primary))/25;
+}
+
+.glow.card:hover,
+.glow[class*="card"]:hover,
+.glow[class*="chart"]:hover {
+  box-shadow: 0 0 25px 8px var(--glow-color, var(--color-primary))/15;
+}
+
+/* Input focus glow */
+.glow.input:focus,
+.glow[type="text"]:focus,
+.glow[type="email"]:focus,
+.glow[type="password"]:focus,
+.glow.floatinglabel-input:focus,
+.glow.standardlabel-input:focus {
+  box-shadow: var(--glow-input) !important;
+}
+
+/* Color-specific glow variables */
+.glow.primary {
+  --glow-color: var(--color-primary);
+}
+
+.glow.secondary {
+  --glow-color: var(--color-secondary);
+}
+
+.glow.success {
+  --glow-color: var(--color-success);
+}
+
+.glow.warning {
+  --glow-color: var(--color-warning);
+}
+
+.glow.danger {
+  --glow-color: var(--color-danger);
+}
+
+.glow.info {
+  --glow-color: var(--color-info);
+}
+
+/* Dolphin-specific glow effects */
+.dolphin-glow {
+  box-shadow: var(--glow-primary);
+}
+
+.dolphin-glow-success {
+  box-shadow: var(--glow-success);
+}
+
+.dolphin-glow-warning {
+  box-shadow: var(--glow-warning);
+}
+
+.dolphin-glow-danger {
+  box-shadow: var(--glow-danger);
+}
+
+.dolphin-glow-info {
+  box-shadow: var(--glow-info);
+}
+
+.dolphin-glow-secondary {
+  box-shadow: var(--glow-secondary);
+}
+
+/* Intensity variants */
+.glow.strong {
+  --glow-intensity: 0.4;
+  --glow-spread: 25px;
+}
+
+.glow.strong:hover {
+  box-shadow: 0 0 35px 12px var(--glow-color, var(--color-primary))/25;
+}
+
+.glow.subtle {
+  --glow-intensity: 0.15;
+  --glow-spread: 10px;
+}
+
+.glow.subtle:hover {
+  box-shadow: 0 0 15px 3px var(--glow-color, var(--color-primary))/15;
+}
+
+/* Pulsing glow - FIXED */
+.glow.pulse {
+  animation: dolphin-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes dolphin-glow-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 5px 2px color-mix(in oklch, var(--glow-color, var(--color-primary)) 15%, transparent);
+  }
+  50% { 
+    box-shadow: 0 0 20px 8px color-mix(in oklch, var(--glow-color, var(--color-primary)) 25%, transparent);
+  }
+}
+
+/* Wave glow - FIXED */
+.glow.wave {
+  animation: ocean-wave 4s ease-in-out infinite;
+}
+
+@keyframes ocean-wave {
+  0%, 100% { 
+    box-shadow: 
+      0 0 10px 3px color-mix(in oklch, var(--color-primary) 20%, transparent),
+      0 0 20px 6px color-mix(in oklch, var(--color-info) 15%, transparent);
+  }
+  50% { 
+    box-shadow: 
+      0 0 15px 5px color-mix(in oklch, var(--color-primary) 25%, transparent),
+      0 0 25px 8px color-mix(in oklch, var(--color-info) 20%, transparent);
+  }
+}
+
+/* Ensure glow works on focus for inputs */
+.floatinglabel-input.glow:focus,
+.standardlabel-input.glow:focus {
+  box-shadow: var(--glow-input) !important;
+}
+
+/* Remove any conflicting shadows from base components */
+.chart-card,
+.card {
+  box-shadow: none !important;
+}
+
+/* Force glow to show on hover */
+.glow:hover {
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .glow:hover {
+    box-shadow: 0 0 15px 4px var(--glow-color, var(--color-primary))/15;
+  }
+}

@@ -1,0 +1,347 @@
+/* ============================
+   🌊 DolphinCSS Admin Side Navigation - UPDATED
+   ✅ Fixed Text Colors
+   ✅ Enhanced Mobile Responsive
+   ============================ */
+
+.admin-nav {
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  min-height: 100vh;
+  transition: all var(--motion-speed) var(--motion-ease);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 280px;
+  z-index: 1000;
+}
+
+/* Header Section - TEXT COLOR FIXED */
+.admin-nav-header {
+  padding: calc(var(--spacing) * 4);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+}
+
+.admin-nav-logo {
+  height: calc(var(--spacing) * 8);
+  width: calc(var(--spacing) * 8);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.admin-nav-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text); /* FIXED: Text color variable */
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Navigation Items - TEXT COLOR FIXED */
+.admin-nav-items {
+  flex: 1;
+  padding: calc(var(--spacing) * 2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  overflow-y: auto;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  color: var(--color-text-muted); /* FIXED: Text color variable */
+  text-decoration: none;
+  transition: all var(--motion-speed) var(--motion-ease);
+  position: relative;
+  margin: 0 calc(var(--spacing) * 2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.admin-nav-item:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text); /* FIXED: Text color variable */
+  transform: translateX(calc(var(--spacing) * 1));
+}
+
+.admin-nav-item.active {
+  background-color: var(--color-primary);
+  color: var(--color-text); /* FIXED: Text color variable */
+  font-weight: var(--font-weight-semibold);
+}
+
+.admin-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--spacing) * -2);
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--spacing) * 1);
+  height: 60%;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.admin-nav-icon {
+  width: calc(var(--spacing) * 5);
+  height: calc(var(--spacing) * 5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--motion-speed) var(--motion-ease);
+  flex-shrink: 0;
+}
+
+.admin-nav-text {
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  transition: all var(--motion-speed) var(--motion-ease);
+  color: inherit; /* FIXED: Inherit parent color */
+}
+
+/* User Section - TEXT COLOR FIXED */
+.admin-nav-user {
+  padding: calc(var(--spacing) * 4);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+}
+
+.admin-nav-avatar {
+  width: calc(var(--spacing) * 10);
+  height: calc(var(--spacing) * 10);
+  border-radius: 3.40282e38px;
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text); /* FIXED: Text color variable */
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+.admin-nav-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-nav-user-name {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text); /* FIXED: Text color variable */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-nav-user-role {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted); /* FIXED: Text color variable */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapse State */
+.admin-nav.collapsed {
+  width: calc(var(--spacing) * 16);
+}
+
+.admin-nav.collapsed .admin-nav-title,
+.admin-nav.collapsed .admin-nav-text,
+.admin-nav.collapsed .admin-nav-user-info {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.admin-nav.collapsed .admin-nav-item {
+  justify-content: center;
+  padding: calc(var(--spacing) * 3);
+  margin: 0 calc(var(--spacing) * 1);
+}
+
+.admin-nav.collapsed .admin-nav-item:hover .admin-nav-tooltip {
+  display: block;
+}
+
+/* Tooltip for Collapsed State */
+.admin-nav-tooltip {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-text); /* FIXED: Text color variable */
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: var(--tw-shadow);
+  margin-left: calc(var(--spacing) * 2);
+}
+
+/* Toggle Button */
+.admin-nav-toggle {
+  position: absolute;
+  top: calc(var(--spacing) * 4);
+  right: calc(var(--spacing) * -3);
+  width: calc(var(--spacing) * 6);
+  height: calc(var(--spacing) * 6);
+  border-radius: 3.40282e38px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--motion-speed) var(--motion-ease);
+  color: var(--color-text); /* FIXED: Text color variable */
+  z-index: 1001;
+}
+
+.admin-nav-toggle:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  transform: scale(1.1);
+}
+
+/* ===== MOBILE RESPONSIVE ENHANCEMENTS ===== */
+@media (max-width: 768px) {
+  .admin-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s var(--motion-ease);
+    width: 280px;
+    box-shadow: 0 0 20px var(--color-shadow);
+  }
+  
+  .admin-nav.mobile-open {
+    transform: translateX(0);
+  }
+  
+  .admin-nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-shadow);
+    z-index: 999;
+    backdrop-filter: blur(4px);
+  }
+  
+  .admin-nav-overlay.mobile-open {
+    display: block;
+  }
+
+  /* Mobile Header */
+  .admin-nav-header {
+    padding: calc(var(--spacing) * 3);
+  }
+
+  .admin-nav-title {
+    font-size: var(--text-base);
+  }
+
+  /* Mobile Menu Items */
+  .admin-nav-items {
+    padding: calc(var(--spacing) * 1) 0;
+  }
+
+  .admin-nav-item {
+    padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 3);
+    margin: 0 calc(var(--spacing) * 1.5);
+  }
+
+  /* Mobile User Section */
+  .admin-nav-user {
+    padding: calc(var(--spacing) * 3);
+    flex-direction: column;
+    text-align: center;
+    gap: calc(var(--spacing) * 2);
+  }
+
+  .admin-nav-avatar {
+    width: calc(var(--spacing) * 8);
+    height: calc(var(--spacing) * 8);
+  }
+
+  /* Mobile Toggle Button */
+  .admin-nav-toggle {
+    display: none; /* Hide desktop toggle on mobile */
+  }
+
+  /* Mobile Close Button */
+  .admin-nav-close {
+    position: absolute;
+    top: calc(var(--spacing) * 3);
+    right: calc(var(--spacing) * 3);
+    width: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 6);
+    border-radius: 3.40282e38px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text);
+    z-index: 1002;
+  }
+
+  .admin-nav-close:hover {
+    background-color: var(--color-danger);
+    color: var(--color-text);
+  }
+}
+
+/* Desktop specific */
+@media (min-width: 769px) {
+  .admin-nav-close {
+    display: none;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .admin-nav {
+    width: 100vw;
+  }
+  
+  .admin-nav-header {
+    padding: calc(var(--spacing) * 2);
+  }
+  
+  .admin-nav-item {
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
+  }
+}

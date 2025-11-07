@@ -1,0 +1,21 @@
+/* App.css - USE THESE RELATIVE PATHS */
+@import "tailwindcss";
+@import "../../MainCss/global.css";
+@import "../../MainCss/variable.css";
+@import "../../MainCss/badge.css";
+@import "../../MainCss/card.css";
+@import "../../MainCss/chartCard.css";
+@import "../../MainCss/darkVariable.css";
+@import "../../MainCss/form.css";
+@import "../../MainCss/glow.css";
+@import "../../MainCss/gradient.css";
+@import "../../MainCss/icon.css";
+@import "../../MainCss/kpi.css";
+@import "../../MainCss/layout.css";
+@import "../../MainCss/nav.css";
+@import "../../MainCss/radio.css";
+@import "../../MainCss/size.css";
+@import "../../MainCss/table.css";
+@import "../../MainCss/sideNave.css";
+@import "../../MainCss/glass.css";
+@import "../../MainCss/motion.css";

@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  /* Primary Colors - Sea Blue */
+  --color-primary: oklch(55% 0.12 200);
+  --color-primary-dark: oklch(45% 0.14 200);
+  --color-secondary: oklch(60% 0.08 190);
+
+  /* Semantic Colors - Ocean Inspired */
+  --color-success: oklch(65% 0.12 160);
+  --color-warning: oklch(75% 0.15 80);
+  --color-danger: oklch(60% 0.15 10);
+  --color-info: oklch(70% 0.10 220);
+
+  /* Neutral Colors */
+  --color-surface: oklch(96% 0.01 210);
+  --color-surface-alt: oklch(92% 0.015 210);
+  --color-text: oklch(22% 0.03 210);
+  --color-text-muted: oklch(45% 0.04 210);
+  --color-border: oklch(85% 0.02 210);
+  --color-shadow: oklch(0% 0 0 / 0.2);
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  --gradient-success: linear-gradient(135deg, var(--color-success), oklch(60% 0.12 160));
+  --gradient-warning: linear-gradient(135deg, var(--color-warning), oklch(70% 0.15 80));
+  --gradient-danger: linear-gradient(135deg, var(--color-danger), oklch(55% 0.15 10));
+  --gradient-info: linear-gradient(135deg, var(--color-info), oklch(65% 0.11 220));
+  --gradient-ocean: linear-gradient(135deg, #a5f3fc, #67e8f9, #22d3ee);
+
+  /* ===== GLASSMORPHISM VARIABLES - UPDATED FOR BETTER VISIBILITY ===== */
+  --glass-bg: rgba(255, 255, 255, 0.25);  /* Increased opacity */
+  --glass-bg-alt: rgba(255, 255, 255, 0.35); /* More visible on hover */
+  --glass-border: rgba(255, 255, 255, 0.35); /* Stronger border */
+  --glass-border-alt: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.2);
+  --glass-blur: blur(20px); /* More blur for better effect */
+  --glass-blur-sm: blur(12px);
+  --glass-blur-lg: blur(24px);
+
+  /* Glass Background Colors for Variants */
+  --glass-primary-bg: rgba(59, 130, 246, 0.25);
+  --glass-success-bg: rgba(34, 197, 94, 0.25);
+  --glass-warning-bg: rgba(251, 191, 36, 0.25);
+  --glass-danger-bg: rgba(239, 68, 68, 0.25);
+  --glass-info-bg: rgba(59, 130, 246, 0.25);
+
+  /* Glass Border Colors for Variants */
+  --glass-primary-border: rgba(59, 130, 246, 0.4);
+  --glass-success-border: rgba(34, 197, 94, 0.4);
+  --glass-warning-border: rgba(251, 191, 36, 0.4);
+  --glass-danger-border: rgba(239, 68, 68, 0.4);
+  --glass-info-border: rgba(59, 130, 246, 0.4);
+
+  /* Glow Effects - Enhanced */
+  --glow-primary: 0 0 25px rgba(59, 130, 246, 0.5);
+  --glow-success: 0 0 25px rgba(34, 197, 94, 0.5);
+  --glow-warning: 0 0 25px rgba(251, 191, 36, 0.5);
+  --glow-danger: 0 0 25px rgba(239, 68, 68, 0.5);
+  --glow-info: 0 0 25px rgba(59, 130, 246, 0.5);
+  --glow-secondary: 0 0 25px rgba(139, 92, 246, 0.5);
+
+  /* Input Glow */
+  --glow-input: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="dark"] {
+  /* Primary Colors */
+  --color-primary: oklch(45% 0.12 200);
+  --color-primary-dark: oklch(35% 0.14 200);
+  --color-secondary: oklch(48% 0.08 190);
+
+  /* Semantic Colors */
+  --color-success: oklch(55% 0.12 160);
+  --color-warning: oklch(65% 0.15 80);
+  --color-danger: oklch(55% 0.15 10);
+  --color-info: oklch(60% 0.10 220);
+
+  /* Neutral Colors */
+  --color-surface: oklch(18% 0.02 210);
+  --color-surface-alt: oklch(22% 0.025 210);
+  --color-text: oklch(98% 0 0);
+  --color-text-muted: oklch(80% 0.02 210);
+  --color-border: oklch(35% 0.03 210);
+  --color-shadow: oklch(0% 0 0 / 0.45); /* Darker shadow */
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  --gradient-ocean: linear-gradient(135deg, #164e63, #0e7490, #0891b2);
+
+  /* ===== GLASSMORPHISM (DARK MODE) - UPDATED FOR BETTER VISIBILITY ===== */
+  --glass-bg: rgba(15, 23, 42, 0.45);  /* Increased opacity */
+  --glass-bg-alt: rgba(15, 23, 42, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.2); /* Better contrast */
+  --glass-border-alt: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Stronger shadows */
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --glass-blur: blur(20px);
+  --glass-blur-sm: blur(12px);
+  --glass-blur-lg: blur(24px);
+
+  /* Glass Background Colors for Dark Mode */
+  --glass-primary-bg: rgba(59, 130, 246, 0.3);
+  --glass-success-bg: rgba(34, 197, 94, 0.3);
+  --glass-warning-bg: rgba(251, 191, 36, 0.3);
+  --glass-danger-bg: rgba(239, 68, 68, 0.3);
+  --glass-info-bg: rgba(59, 130, 246, 0.3);
+
+  /* Glass Border Colors for Dark Mode */
+  --glass-primary-border: rgba(59, 130, 246, 0.5);
+  --glass-success-border: rgba(34, 197, 94, 0.5);
+  --glass-warning-border: rgba(251, 191, 36, 0.5);
+  --glass-danger-border: rgba(239, 68, 68, 0.5);
+  --glass-info-border: rgba(59, 130, 246, 0.5);
+
+  /* Glow Effects - Enhanced for Dark Mode */
+  --glow-primary: 0 0 30px rgba(59, 130, 246, 0.7);
+  --glow-success: 0 0 30px rgba(34, 197, 94, 0.7);
+  --glow-warning: 0 0 30px rgba(251, 191, 36, 0.7);
+  --glow-danger: 0 0 30px rgba(239, 68, 68, 0.7);
+  --glow-info: 0 0 30px rgba(59, 130, 246, 0.7);
+  --glow-secondary: 0 0 30px rgba(139, 92, 246, 0.7);
+
+  /* Input Glow for Dark Mode */
+  --glow-input: 0 0 0 3px rgba(59, 130, 246, 0.4);
+}
+
+/* ===== Dolphin Utility Classes ===== */
+.dolphin-glow { box-shadow: var(--glow-primary); }
+.dolphin-glow-success { box-shadow: var(--glow-success); }
+.dolphin-glow-warning { box-shadow: var(--glow-warning); }
+.dolphin-glow-danger { box-shadow: var(--glow-danger); }
+.dolphin-glow-info { box-shadow: var(--glow-info); }
+.dolphin-glow-secondary { box-shadow: var(--glow-secondary); }
+
+.ocean-gradient { background: var(--gradient-ocean); }
+.dolphin-gradient { background: var(--gradient-primary); }
+.sea-foam { background-color: var(--color-surface); }
+.deep-ocean { background-color: var(--color-surface-alt); }
+
+/* ===== Enhanced Glass Component Styles ===== */
+.glass {
+  @apply rounded-xl border transition-all duration-300 ease-out;
+  background-color: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass:hover {
+  background-color: var(--glass-bg-alt);
+  border-color: var(--glass-border-alt);
+  backdrop-filter: var(--glass-blur-lg);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+/* Glass Variants with Better Visibility */
+.glass-primary { 
+  background-color: var(--glass-primary-bg);
+  border-color: var(--glass-primary-border);
+}
+
+.glass-success { 
+  background-color: var(--glass-success-bg);
+  border-color: var(--glass-success-border);
+}
+
+.glass-warning { 
+  background-color: var(--glass-warning-bg);
+  border-color: var(--glass-warning-border);
+}
+
+.glass-danger { 
+  background-color: var(--glass-danger-bg);
+  border-color: var(--glass-danger-border);
+}
+
+.glass-info { 
+  background-color: var(--glass-info-bg);
+  border-color: var(--glass-info-border);
+}
+
+/* Ensure text remains visible on glass backgrounds */
+.glass,
+.glass-primary,
+.glass-success,
+.glass-warning,
+.glass-danger,
+.glass-info {
+  color: var(--color-text) !important;
+}
+
+.glass .text-muted {
+  color: var(--color-text-muted) !important;
+}

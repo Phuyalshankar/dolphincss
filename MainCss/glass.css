@@ -1,0 +1,80 @@
+/* ===== Glass Component - Tailwind v4 Compatible (Variable-Based) ===== */
+
+.glass {
+  @apply rounded-xl border transition-all duration-300 ease-out;
+  background-color: var(--glass-bg);
+  border-color: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass:hover {
+  background-color: var(--glass-bg-alt);
+  border-color: var(--glass-border-alt);
+  backdrop-filter: var(--glass-blur-lg);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+.glass:active {
+  @apply scale-95;
+}
+
+/* Size variants */
+.glass-sm {
+  @apply rounded-lg p-2;
+  backdrop-filter: var(--glass-blur-sm);
+  border-color: var(--glass-border-alt);
+}
+
+.glass-md {
+  @apply rounded-xl p-4;
+  backdrop-filter: var(--glass-blur);
+  border-color: var(--glass-border);
+}
+
+.glass-lg {
+  @apply rounded-2xl p-6;
+  backdrop-filter: var(--glass-blur-lg);
+  border-color: var(--glass-border-alt);
+}
+
+/* Color Tints */
+.glass-primary { background-color: var(--color-primary-bg, var(--glass-bg)); border-color: var(--color-primary-border, var(--glass-border)); }
+.glass-success { background-color: var(--color-success-bg, var(--glass-bg)); border-color: var(--color-success-border, var(--glass-border)); }
+.glass-warning { background-color: var(--color-warning-bg, var(--glass-bg)); border-color: var(--color-warning-border, var(--glass-border)); }
+.glass-danger  { background-color: var(--color-danger-bg, var(--glass-bg)); border-color: var(--color-danger-border, var(--glass-border)); }
+.glass-info    { background-color: var(--color-info-bg, var(--glass-bg)); border-color: var(--color-info-border, var(--glass-border)); }
+
+/* Button + Glass combination */
+.filled.glass {
+  @apply text-white font-medium;
+  backdrop-filter: var(--glass-blur);
+  background-color: var(--glass-bg);
+}
+
+.filled.glass:hover {
+  background-color: var(--glass-bg-alt);
+  backdrop-filter: var(--glass-blur-lg);
+}
+
+.outlined.glass {
+  @apply text-white border-2;
+  border-color: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  background-color: transparent;
+}
+
+.outlined.glass:hover {
+  background-color: var(--glass-bg);
+  border-color: var(--glass-border-alt);
+}
+
+.plain.glass {
+  @apply text-white;
+  background-color: transparent;
+  backdrop-filter: var(--glass-blur-sm);
+}
+
+.plain.glass:hover {
+  background-color: var(--glass-bg-alt);
+}

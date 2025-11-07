@@ -1,0 +1,29 @@
+ /*===== Table System ===== */
+ @layer components {
+  .table {
+    @apply w-full border-collapse transition-all duration-200 text-(--color-text);
+  }
+  .table th, .table td {
+    @apply px-4 py-2 border border-(--color-border) text-left font-medium transition-all duration-200;
+  }
+  .table.filled th, .table.filled td { background-color: var(--color-surface); color: var(--color-text); }
+  .table.outlined th, .table.outlined td {
+    @apply border-2 border-(--color-border) bg-transparent text-(--color-text);
+  }
+  .table.primary.filled th, .table.primary.filled td { background-color: var(--color-primary); color: var(--color-text); border-color: var(--color-primary); }
+  .table.secondary.filled th, .table.secondary.filled td { background-color: var(--color-secondary); color: var(--color-text); border-color: var(--color-secondary); }
+  .table.success.filled th, .table.success.filled td { background-color: var(--color-success); color: var(--color-text); border-color: var(--color-success); }
+  .table.warning.filled th, .table.warning.filled td { background-color: var(--color-warning); color: var(--color-text); border-color: var(--color-warning); }
+  .table.danger.filled th, .table.danger.filled td { background-color: var(--color-danger); color: var(--color-text); border-color: var(--color-danger); }
+  .table.info.filled th, .table.info.filled td { background-color: var(--color-info); color: var(--color-text); border-color: var(--color-info); }
+  .table.striped tbody tr:nth-child(even) { background-color: color-mix(in oklch, var(--color-surface), 10% oklch(0% 0 0)); }
+  .table tbody tr:hover { opacity: 0.95; }
+  .table.filled.primary tbody tr:hover { background-color: color-mix(in oklch, var(--color-primary), 10% oklch(0% 0 0)); }
+  .table.filled.success tbody tr:hover { background-color: color-mix(in oklch, var(--color-success), 10% oklch(0% 0 0)); }
+  .table.filled.warning tbody tr:hover { background-color: color-mix(in oklch, var(--color-warning), 10% oklch(0% 0 0)); }
+  .table.filled.danger tbody tr:hover { background-color: color-mix(in oklch, var(--color-danger), 10% oklch(0% 0 0)); }
+  .table.filled.info tbody tr:hover { background-color: color-mix(in oklch, var(--color-info), 10% oklch(0% 0 0)); }
+  [data-theme="dark"] .table th, [data-theme="dark"] .table td { border-color: var(--color-border); color: var(--color-text); }
+  [data-theme="dark"] .table.filled th, [data-theme="dark"] .table.filled td { background-color: var(--color-surface); color: var(--color-text); }
+  .table-responsive { @apply overflow-x-auto w-full; }
+ }

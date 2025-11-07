@@ -1,0 +1,44 @@
+{
+  "name": "dolphincss",
+  "version": "1.0.4",
+  "type": "module",
+  "description": "DolphinCSS - World-class TailwindCSS + React component library",
+  "main": "dolphin-css.css",
+  "scripts": {
+    "dev": "vite",
+   "build:css": "npx @tailwindcss/cli -i ./src/dolphin-css/App.css -o ./dolphin-css.css --minify",
+    "watch:css": "npx @tailwindcss/cli -i ./src/dolphin-css/App.css -o ./dolphin-css.css --watch",
+    "build": "vite build && npm run build:css",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "css",
+    "tailwind",
+    "react",
+    "components",
+    "dolphin-theme"
+  ],
+  "author": "Shankar Phunyal",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.16",
+    "dolphincss": "^1.0.1",
+    "lucide-react": "^0.547.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.4.0",
+    "vite": "^7.1.7"
+  }
+}
