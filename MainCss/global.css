@@ -11,32 +11,48 @@
   }
 
   /* ===== Button Colors ===== */
-  .primary.filled { background-color: var(--color-primary); color: var(--color-text) !important; }
-  .primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text) !important; }
-  .primary.plain { color: var(--color-text) !important; }
+  .primary.filled { background-color: var(--color-primary); color: var(--color-text); }
+  .primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text); }
+  .primary.plain { color: var(--color-text); }
 
-  .secondary.filled { background-color: var(--color-secondary); color: var(--color-text) !important; }
-  .secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text) !important; }
-  .secondary.plain { color: var(--color-text) !important; }
+  .secondary.filled { background-color: var(--color-secondary); color: var(--color-text); }
+  .secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text); }
+  .secondary.plain { color: var(--color-text); }
 
-  .success.filled { background-color: var(--color-success); color: var(--color-text) !important; }
-  .success.outlined { border: 2px solid var(--color-success); color: var(--color-text) !important; }
-  .success.plain { color: var(--color-text) !important; }
+  .success.filled { background-color: var(--color-success); color: var(--color-text); }
+  .success.outlined { border: 2px solid var(--color-success); color: var(--color-text); }
+  .success.plain { color: var(--color-text); }
 
-  .warning.filled { background-color: var(--color-warning); color: var(--color-text) !important; }
-  .warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text) !important; }
-  .warning.plain { color: var(--color-text) !important; }
+  .warning.filled { background-color: var(--color-warning); color: var(--color-text); }
+  .warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text); }
+  .warning.plain { color: var(--color-text); }
 
-  .danger.filled { background-color: var(--color-danger); color: var(--color-text) !important; }
-  .danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text) !important; }
-  .danger.plain { color: var(--color-text) !important; }
+  .danger.filled { background-color: var(--color-danger); color: var(--color-text); }
+  .danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text); }
+  .danger.plain { color: var(--color-text); }
 
-  .info.filled { background-color: var(--color-info); color: var(--color-text) !important; }
-  .info.outlined { border: 2px solid var(--color-info); color: var(--color-text) !important; }
-  .info.plain { color: var(--color-text) !important; }
+  .info.filled { background-color: var(--color-info); color: var(--color-text); }
+  .info.outlined { border: 2px solid var(--color-info); color: var(--color-text); }
+  .info.plain { color: var(--color-text); }
 
-  /* Button Hover/Focus/Disabled */
-  .filled:hover, .outlined:hover, .plain:hover { opacity: 0.9; }
+  /* Button Hover/Focus/Disabled - FIXED: Icon नमाधुरो हुने */
+  /* OPTION 1: Background color मात्र change गर्ने (Recommended) */
+  .filled:hover { 
+    background-color: color-mix(in srgb, currentColor 90%, transparent); 
+  }
+  
+  .outlined:hover { 
+    background-color: color-mix(in srgb, currentColor 10%, transparent); 
+  }
+  
+  .plain:hover { 
+    background-color: color-mix(in srgb, currentColor 5%, transparent); 
+  }
+
+  /* OPTION 2: Filter use गर्ने (alternative) */
+  /* .filled:hover, .outlined:hover, .plain:hover { 
+    filter: brightness(0.95); 
+  } */
 
   /* Remove Tailwind ring to prevent double ring */
   .filled:focus-visible,
@@ -50,7 +66,7 @@
   .filled:disabled,
   .outlined:disabled,
   .plain:disabled {
-    @apply opacity-50 cursor-not-allowed pointer-events-none;
+    @apply opacity-50 cursor-not-allowed;
   }
 
   /* ===== Circle Buttons ===== */
@@ -64,19 +80,19 @@
   .circle.md { @apply w-12 h-12 text-base; }
   .circle.lg { @apply w-16 h-16 text-lg; }
 
-  .circle.primary.filled { background-color: var(--color-primary); color: var(--color-text) !important; }
-  .circle.secondary.filled { background-color: var(--color-secondary); color: var(--color-text) !important; }
-  .circle.success.filled { background-color: var(--color-success); color: var(--color-text) !important; }
-  .circle.warning.filled { background-color: var(--color-warning); color: var(--color-text) !important; }
-  .circle.danger.filled { background-color: var(--color-danger); color: var(--color-text) !important; }
-  .circle.info.filled { background-color: var(--color-info); color: var(--color-text) !important; }
+  .circle.primary.filled { background-color: var(--color-primary); color: var(--color-text); }
+  .circle.secondary.filled { background-color: var(--color-secondary); color: var(--color-text); }
+  .circle.success.filled { background-color: var(--color-success); color: var(--color-text); }
+  .circle.warning.filled { background-color: var(--color-warning); color: var(--color-text); }
+  .circle.danger.filled { background-color: var(--color-danger); color: var(--color-text); }
+  .circle.info.filled { background-color: var(--color-info); color: var(--color-text); }
 
-  .circle.primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text) !important; }
-  .circle.secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text) !important; }
-  .circle.success.outlined { border: 2px solid var(--color-success); color: var(--color-text) !important; }
-  .circle.warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text) !important; }
-  .circle.danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text) !important; }
-  .circle.info.outlined { border: 2px solid var(--color-info); color: var(--color-text) !important; }
+  .circle.primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text); }
+  .circle.secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text); }
+  .circle.success.outlined { border: 2px solid var(--color-success); color: var(--color-text); }
+  .circle.warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text); }
+  .circle.danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text); }
+  .circle.info.outlined { border: 2px solid var(--color-info); color: var(--color-text); }
 
   .circle.primary.plain,
   .circle.secondary.plain,
@@ -85,12 +101,32 @@
   .circle.danger.plain,
   .circle.info.plain {
     background-color: transparent;
-    color: var(--color-text) !important;
+    color: var(--color-text);
   }
 
-  .circle:hover { opacity: 0.9; }
-  .circle:disabled { @apply opacity-50 cursor-not-allowed pointer-events-none; }
+  /* Circle buttons hover - FIXED */
+  .circle.filled:hover { 
+    background-color: color-mix(in srgb, currentColor 90%, transparent); 
+  }
+  
+  .circle.outlined:hover { 
+    background-color: color-mix(in srgb, currentColor 10%, transparent); 
+  }
+  
+  .circle.plain:hover { 
+    background-color: color-mix(in srgb, currentColor 5%, transparent); 
+  }
+  
+  .circle:disabled { @apply opacity-50 cursor-not-allowed; }
+  
+  /* ===== Button Sizes ===== */
+  .btn-xs { @apply px-2 py-1 text-xs; }
+  .btn-sm { @apply px-3 py-1.5 text-sm; }
+  .btn-md { @apply px-4 py-2 text-base; }
+  .btn-lg { @apply px-6 py-3 text-lg; }
+  .btn-xl { @apply px-8 py-4 text-xl; }
 }
+
 /* ===== Global Glowing Effects (Fixed) ===== */
 .glow {
   @apply transition-all duration-300;

@@ -1,202 +1,413 @@
-/* ===== Radio System ===== */
+/* ===== RADIO SYSTEM - CLEAN FOCUS ===== */
 @layer components {
   .radio-group { @apply flex flex-col gap-2; }
   .radio-item { @apply flex items-center gap-2 cursor-pointer select-none relative; }
+  
   .radio-item input[type="radio"] {
-    @apply appearance-none w-5 h-5 rounded-full border border-(--color-border) checked:bg-(--color-primary) checked:border-(--color-primary) focus:ring-2 focus:ring-(--color-primary) transition-colors duration-200;
+    @apply appearance-none w-5 h-5 rounded-full border border-(--color-border) 
+           checked:bg-(--color-primary) checked:border-(--color-primary) 
+           transition-all duration-200;
+    box-shadow: 0 1px 2px 0 color-mix(in srgb, var(--color-text), transparent 90%);
   }
-  .radio-label { @apply text-(--color-text) select-none; }
+  
+  /* FIXED: Clean single focus ring */
+  .radio-item input[type="radio"]:focus-visible {
+    @apply outline-none;
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 20%, transparent);
+  }
+  
+  .radio-label { @apply text-(--color-text) select-none transition-colors; }
   .radio-item input[type="radio"]:disabled + .radio-label {
     @apply opacity-50 cursor-not-allowed;
   }
   .radio-group.horizontal { @apply flex-row gap-4; }
 
-  /* ===== Checkbox System ===== */
+  /* ===== CHECKBOX SYSTEM - CLEAN FOCUS ===== */
   input[type="checkbox"] {
-    @apply w-5 h-5 m-0 align-middle border-2 rounded border-(--color-border) bg-(--color-surface) cursor-pointer relative transition-all duration-200 appearance-none;
+    @apply w-5 h-5 m-0 align-middle border-2 rounded border-(--color-border) 
+           bg-(--color-surface) cursor-pointer relative appearance-none;
+    box-shadow: 0 1px 2px 0 color-mix(in srgb, var(--color-text), transparent 90%);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  
   input[type="checkbox"]::after {
     content: '';
-    @apply absolute hidden top-[3px] left-[6px] w-1 h-2 border-r-2 border-b-2 border-(--color-surface) rotate-45;
+    @apply absolute hidden top-[2px] left-[5px] w-1 h-2 
+           border-r-2 border-b-2 border-(--color-surface) rotate-45;
   }
+  
   input[type="checkbox"]:checked::after { @apply block; }
-  input[type="checkbox"].primary:checked { background-color: var(--color-primary); border-color: var(--color-primary); }
-  input[type="checkbox"].secondary:checked { background-color: var(--color-secondary); border-color: var(--color-secondary); }
-  input[type="checkbox"].success:checked { background-color: var(--color-success); border-color: var(--color-success); }
-  input[type="checkbox"].warning:checked { background-color: var(--color-warning); border-color: var(--color-warning); }
-  input[type="checkbox"].danger:checked { background-color: var(--color-danger); border-color: var(--color-danger); }
-  input[type="checkbox"].info:checked { background-color: var(--color-info); border-color: var(--color-info); }
-  input[type="checkbox"]:disabled { @apply opacity-50 cursor-not-allowed; }
+  
+  /* FIXED: Clean single focus ring */
+  input[type="checkbox"]:focus-visible {
+    @apply outline-none;
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 20%, transparent);
+  }
+  
+  /* Variants - keep same class names */
+  input[type="checkbox"].primary:checked { 
+    background-color: var(--color-primary); 
+    border-color: var(--color-primary); 
+  }
+  input[type="checkbox"].secondary:checked { 
+    background-color: var(--color-secondary); 
+    border-color: var(--color-secondary); 
+  }
+  input[type="checkbox"].success:checked { 
+    background-color: var(--color-success); 
+    border-color: var(--color-success); 
+  }
+  input[type="checkbox"].warning:checked { 
+    background-color: var(--color-warning); 
+    border-color: var(--color-warning); 
+  }
+  input[type="checkbox"].danger:checked { 
+    background-color: var(--color-danger); 
+    border-color: var(--color-danger); 
+  }
+  input[type="checkbox"].info:checked { 
+    background-color: var(--color-info); 
+    border-color: var(--color-info); 
+  }
+  
+  input[type="checkbox"]:disabled { 
+    @apply opacity-50 cursor-not-allowed; 
+  }
 
-  /* ===== Select System ===== */
+  /* ===== SELECT SYSTEM - CLEAN FOCUS ===== */
   .select-wrapper { @apply relative inline-block w-full; }
+  
   .select {
-    @apply w-full p-2 text-base rounded-md border-2 border-(--color-border) bg-(--color-surface) text-(--color-text) cursor-pointer appearance-none transition-all duration-200;
+    @apply w-full px-3 py-2 text-base rounded-md border-2 
+           border-(--color-border) bg-(--color-surface) 
+           text-(--color-text) cursor-pointer appearance-none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 2.75rem;
   }
+  
+  /* FIXED: Single clean focus style */
   .select:focus {
-    @apply outline-none border-(--color-primary) ring-2 ring-(--color-primary)/10;
+    @apply outline-none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 15%, transparent);
   }
+  
   .select:disabled {
-    @apply opacity-50 cursor-not-allowed bg-(--color-surface) text-(--color-border);
+    @apply opacity-50 cursor-not-allowed 
+           bg-[color-mix(in_srgb,var(--color-surface),black_2%)] 
+           text-(--color-border);
   }
-  .select.primary { background-color: var(--color-primary); color: var(--color-text); border-color: var(--color-primary); }
-  .select.secondary { background-color: var(--color-secondary); color: var(--color-text); border-color: var(--color-secondary); }
-  .select.success { background-color: var(--color-success); color: var(--color-text); border-color: var(--color-success); }
-  .select.warning { background-color: var(--color-warning); color: var(--color-text); border-color: var(--color-warning); }
-  .select.danger { background-color: var(--color-danger); color: var(--color-text); border-color: var(--color-danger); }
-  .select.info { background-color: var(--color-info); color: var(--color-text); border-color: var(--color-info); }
-  .select.gradient.primary { background-image: var(--gradient-primary); color: var(--color-text); border: none; }
+  
+  /* Variants - same class names */
+  .select.primary { 
+    border-color: var(--color-primary); 
+    background-color: color-mix(in srgb, var(--color-primary) 5%, transparent); 
+  }
+  .select.primary:focus { 
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); 
+  }
+  
+  .select.secondary { 
+    border-color: var(--color-secondary); 
+    background-color: color-mix(in srgb, var(--color-secondary) 5%, transparent); 
+  }
+  .select.success { 
+    border-color: var(--color-success); 
+    background-color: color-mix(in srgb, var(--color-success) 5%, transparent); 
+  }
+  .select.warning { 
+    border-color: var(--color-warning); 
+    background-color: color-mix(in srgb, var(--color-warning) 5%, transparent); 
+  }
+  .select.danger { 
+    border-color: var(--color-danger); 
+    background-color: color-mix(in srgb, var(--color-danger) 5%, transparent); 
+  }
+  .select.info { 
+    border-color: var(--color-info); 
+    background-color: color-mix(in srgb, var(--color-info) 5%, transparent); 
+  }
+  
+  .select.gradient.primary { 
+    background-image: var(--gradient-primary); 
+    color: var(--color-text); 
+    border: none; 
+    box-shadow: 0 2px 4px color-mix(in srgb, black 10%, transparent); 
+  }
+  
   .select-wrapper::after {
     content: '';
-    @apply absolute top-1/2 right-4 w-2 h-2 border-r-2 border-b-2 border-(--color-text) -translate-y-1/2 rotate-45 pointer-events-none;
+    @apply absolute top-1/2 right-4 w-2 h-2 
+           border-r-2 border-b-2 border-(--color-text) 
+           pointer-events-none -translate-y-1/2 rotate-45;
+    opacity: 0.6;
   }
-  /* ===== Floating Label Text Field (Fixed v2) ===== */
-.floatinglabel {
-  @apply relative w-full;
-}
 
-/* Input field */
-.floatinglabel-input {
-  @apply w-full px-3 py-2 text-base rounded-md border-2 border-(--color-border)
-         bg-(--color-surface) text-(--color-text)
-         transition-all duration-200;
-}
+  /* ===== FLOATING LABEL - CLEAN FOCUS ===== */
+  .floatinglabel {
+    @apply relative w-full;
+  }
 
-/* Focus & disabled */
-.floatinglabel-input:focus {
-  @apply outline-none border-(--color-primary);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
-}
-.floatinglabel-input:disabled {
-  @apply opacity-50 cursor-not-allowed bg-(--color-surface) text-(--color-border);
-}
+  .floatinglabel-input {
+    @apply w-full px-3 py-2 text-base rounded-md border-2 
+           border-(--color-border) bg-(--color-surface) text-(--color-text);
+    min-height: 3rem;
+    z-index: 0;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.5;
+  }
 
-/* Label */
-.floatinglabel-label {
-  @apply absolute left-3 top-1/2 -translate-y-1/2
-         text-(--color-text-muted) text-base transition-all duration-200
-         pointer-events-none bg-transparent;
-}
+  /* FIXED: Clean focus with single ring */
+  .floatinglabel-input:focus {
+    @apply outline-none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 15%, transparent);
+  }
+  
+  .floatinglabel-input:focus-visible {
+    @apply outline-none;
+  }
 
-/* Floating effect */
-.floatinglabel-input:focus + .floatinglabel-label,
-.floatinglabel-input:not(:placeholder-shown) + .floatinglabel-label {
-  @apply -top-2 text-sm translate-y-0;
-}
+  .floatinglabel-input:disabled {
+    @apply opacity-50 cursor-not-allowed 
+           bg-[color-mix(in_srgb,var(--color-surface),black_2%)] 
+           text-(--color-border);
+    border-color: color-mix(in srgb, var(--color-border), transparent 20%) !important;
+  }
 
-/* Color Variants */
-.floatinglabel.primary .floatinglabel-input:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
-}
-.floatinglabel.primary .floatinglabel-input:focus + .floatinglabel-label {
-  color: var(--color-primary);
-}
+  /* Label styles unchanged */
+  .floatinglabel-label {
+    @apply absolute left-3 top-1/2 -translate-y-1/2
+           text-(--color-text-muted) text-base
+           pointer-events-none bg-transparent;
+    background-color: var(--color-surface) !important;
+    padding: 0 4px;
+    z-index: 100;
+    line-height: 1.1;
+    transition: 
+      top 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-/* ... (secondary, success, warning, danger, info same as before) ... */
+  .floatinglabel-input:focus ~ .floatinglabel-label,
+  .floatinglabel-input:not(:placeholder-shown) ~ .floatinglabel-label {
+    top: 0 !important;
+    transform: translateY(0) !important;
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    left: 0.75rem !important;
+  }
 
-/* Gradient variant */
-.floatinglabel.gradient.primary .floatinglabel-input:focus {
-  background-image: var(--gradient-primary);
-  @apply border-none text-(--color-text);
-  box-shadow: none;
-}
+  /* ===== STANDARD LABEL - CLEAN FOCUS ===== */
+  .standardlabel {
+    @apply relative w-full;
+  }
 
-/* ===== Icon Support Fix ===== */
+  .standardlabel-input {
+    @apply w-full px-3 py-2 text-base bg-transparent text-(--color-text);
+    border-bottom: 2px solid var(--color-border) !important;
+    outline: none !important;
+    min-height: 2.75rem;
+    transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    line-height: 1.5;
+  }
 
-/* Left icon */
-.floatinglabel.input-icon-left {
-  @apply relative;
-}
-.floatinglabel.input-icon-left > svg {
-  @apply absolute left-3 top-1/2 -translate-y-1/2
-         w-5 h-5 text-(--color-text-muted) pointer-events-none;
-}
-.floatinglabel.input-icon-left .floatinglabel-input {
-  @apply pl-10;
-}
-/* label offset for left icon */
-.floatinglabel.input-icon-left .floatinglabel-label {
-  left: 2.75rem; /* label right side of icon */
-}
-.floatinglabel.input-icon-left .floatinglabel-input:focus + .floatinglabel-label,
-.floatinglabel.input-icon-left .floatinglabel-input:not(:placeholder-shown) + .floatinglabel-label {
-  left: 2.5rem; /* float state offset fine-tuned */
-}
+  /* FIXED: Clean focus for standard label */
+  .standardlabel-input:focus {
+    @apply outline-none;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 2px 0 0 var(--color-primary);
+  }
+  
+  .standardlabel-input:disabled {
+    @apply opacity-50 cursor-not-allowed text-(--color-border);
+    border-color: color-mix(in srgb, var(--color-border), transparent 20%) !important;
+  }
 
-/* Right icon */
-.floatinglabel.input-icon-right {
-  @apply relative;
-}
-.floatinglabel.input-icon-right > svg {
-  @apply absolute right-3 top-1/2 -translate-y-1/2
-         w-5 h-5 text-(--color-text-muted) pointer-events-none;
-}
-.floatinglabel.input-icon-right .floatinglabel-input {
-  @apply pr-10;
-}
-/* ===== Standard Variant Text Field (Icon Fixed) ===== */
-.standardlabel {
-  @apply relative w-full pt-5; /* padding top for label */
-}
+  .standardlabel-label {
+    @apply absolute left-3 top-1/2 -translate-y-1/2
+           text-(--color-text-muted) text-base
+           pointer-events-none bg-transparent;
+    background-color: var(--color-surface) !important;
+    padding: 0 4px;
+    z-index: 100;
+    line-height: 1.1;
+    transition: 
+      top 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      font-size 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+      left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 
-/* Input field */
-.standardlabel-input {
-  @apply w-full px-0 py-1 text-base bg-transparent text-(--color-text)
-         border-0 border-b-2 border-(--color-border) transition-all duration-200;
-}
+  .standardlabel-input:focus ~ .standardlabel-label,
+  .standardlabel-input:not(:placeholder-shown) ~ .standardlabel-label {
+    top: 0 !important;
+    transform: translateY(0) !important;
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    left: 0.75rem !important;
+  }
 
-/* Focus & disabled */
-.standardlabel-input:focus {
-  @apply outline-none;
-  border-bottom-color: var(--color-primary);
-}
-.standardlabel-input:disabled {
-  @apply opacity-50 cursor-not-allowed text-(--color-border);
-  border-bottom-color: var(--color-border);
-}
+  /* ===== REGULAR INPUTS WITH ICONS - CLEAN FOCUS ===== */
+  .input-icon-left {
+    @apply relative w-full;
+  }
+  .input-icon-left > svg {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color-text-muted);
+    z-index: 10;
+  }
+  .input-icon-left > input,
+  .input-icon-left > select {
+    @apply w-full pl-10 pr-3 py-2 rounded-md border-2 
+           border-(--color-border) bg-(--color-surface);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* FIXED: Clean focus for icon inputs */
+  .input-icon-left > input:focus,
+  .input-icon-left > select:focus {
+    @apply outline-none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 15%, transparent);
+  }
 
-/* Label */
-.standardlabel-label {
-  @apply absolute text-(--color-text-muted) text-base transition-all duration-200 pointer-events-none;
-  top: 1.25rem; /* vertical center */
-  left: 0.5rem; /* default */
-}
+  .input-icon-right {
+    @apply relative w-full;
+  }
+  .input-icon-right > svg {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color-text-muted);
+    z-index: 10;
+  }
+  .input-icon-right > input,
+  .input-icon-right > select {
+    @apply w-full pl-3 pr-10 py-2 rounded-md border-2 
+           border-(--color-border) bg-(--color-surface);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* FIXED: Clean focus for icon inputs */
+  .input-icon-right > input:focus,
+  .input-icon-right > select:focus {
+    @apply outline-none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 15%, transparent);
+  }
 
-/* Floating effect */
-.standardlabel-input:focus + .standardlabel-label,
-.standardlabel-input:not(:placeholder-shown) + .standardlabel-label {
-  @apply -top-1 text-sm;
-  color: var(--color-primary);
-}
+  .input-icon-both {
+    @apply relative w-full;
+  }
+  .input-icon-both > .icon-left {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 
+           w-5 h-5 text-(--color-text-muted) pointer-events-none z-20;
+  }
+  .input-icon-both > .icon-right {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 
+           w-5 h-5 text-(--color-text-muted) cursor-pointer z-30;
+    pointer-events: auto;
+  }
+  .input-icon-both > input,
+  .input-icon-both > select {
+    @apply w-full pl-10 pr-10 py-2 rounded-md border-2 
+           border-(--color-border) bg-(--color-surface);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* FIXED: Clean focus for both icon inputs */
+  .input-icon-both > input:focus,
+  .input-icon-both > select:focus {
+    @apply outline-none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 15%, transparent);
+  }
 
-/* Left icon support */
-.standardlabel.input-icon-left {
-  @apply relative;
-}
-.standardlabel.input-icon-left > svg {
-  @apply absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color-text-muted) pointer-events-none;
-}
-.standardlabel.input-icon-left .standardlabel-input {
-  @apply pl-10; /* input padding */
-}
-.standardlabel.input-icon-left .standardlabel-label {
-  left: 2.75rem; /* label offset */
-}
-.standardlabel.input-icon-left .standardlabel-input:focus + .standardlabel-label,
-.standardlabel.input-icon-left .standardlabel-input:not(:placeholder-shown) + .standardlabel-label {
-  left: 2.5rem; /* floating label fine-tune */
-}
+  /* ===== THEME-AWARE FOCUS STYLES ===== */
+  /* Danphe theme लाई अलग focus style */
+  [data-theme="danphe"] {
+    /* Radio focus */
+    .radio-item input[type="radio"]:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 20%, transparent);
+    }
+    
+    /* Checkbox focus */
+    input[type="checkbox"]:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 20%, transparent);
+    }
+    
+    /* Select focus */
+    .select:focus {
+      border-color: var(--color-danphe-primary);
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 15%, transparent);
+    }
+    
+    /* Floating label focus */
+    .floatinglabel-input:focus {
+      border-color: var(--color-danphe-primary);
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 15%, transparent);
+    }
+    
+    .floatinglabel-input:focus ~ .floatinglabel-label {
+      color: var(--color-danphe-primary);
+    }
+    
+    /* Standard label focus */
+    .standardlabel-input:focus {
+      border-color: var(--color-danphe-primary) !important;
+      box-shadow: 0 2px 0 0 var(--color-danphe-primary);
+    }
+    
+    .standardlabel-input:focus ~ .standardlabel-label {
+      color: var(--color-danphe-primary);
+    }
+    
+    /* Icon inputs focus */
+    .input-icon-left > input:focus,
+    .input-icon-left > select:focus,
+    .input-icon-right > input:focus,
+    .input-icon-right > select:focus,
+    .input-icon-both > input:focus,
+    .input-icon-both > select:focus {
+      border-color: var(--color-danphe-primary);
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 15%, transparent);
+    }
+  }
 
-/* Right icon support */
-.standardlabel.input-icon-right {
-  @apply relative;
-}
-.standardlabel.input-icon-right > svg {
-  @apply absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 text-(--color-text-muted) pointer-events-none;
-}
-.standardlabel.input-icon-right .standardlabel-input {
-  @apply pr-10; /* input padding */
-}
-
+  /* Dark mode adjustments */
+  [data-theme-mode="dark"] {
+    /* Focus rings अझ soft बनाउने */
+    .radio-item input[type="radio"]:focus-visible,
+    input[type="checkbox"]:focus-visible,
+    .select:focus,
+    .floatinglabel-input:focus,
+    .standardlabel-input:focus,
+    .input-icon-left > input:focus,
+    .input-icon-left > select:focus,
+    .input-icon-right > input:focus,
+    .input-icon-right > select:focus,
+    .input-icon-both > input:focus,
+    .input-icon-both > select:focus {
+      box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 25%, transparent);
+    }
+    
+    /* Danphe theme dark mode */
+    [data-theme="danphe"] & {
+      .radio-item input[type="radio"]:focus-visible,
+      input[type="checkbox"]:focus-visible,
+      .select:focus,
+      .floatinglabel-input:focus,
+      .standardlabel-input:focus,
+      .input-icon-left > input:focus,
+      .input-icon-left > select:focus,
+      .input-icon-right > input:focus,
+      .input-icon-right > select:focus,
+      .input-icon-both > input:focus,
+      .input-icon-both > select:focus {
+        box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 25%, transparent);
+      }
+    }
+  }
 }

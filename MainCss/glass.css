@@ -15,9 +15,10 @@
   box-shadow: var(--glass-shadow-lg);
 }
 
-.glass:active {
+/* :active scale effect REMOVED - No more debounce on click */
+/* .glass:active {
   @apply scale-95;
-}
+} */
 
 /* Size variants */
 .glass-sm {
@@ -39,11 +40,30 @@
 }
 
 /* Color Tints */
-.glass-primary { background-color: var(--color-primary-bg, var(--glass-bg)); border-color: var(--color-primary-border, var(--glass-border)); }
-.glass-success { background-color: var(--color-success-bg, var(--glass-bg)); border-color: var(--color-success-border, var(--glass-border)); }
-.glass-warning { background-color: var(--color-warning-bg, var(--glass-bg)); border-color: var(--color-warning-border, var(--glass-border)); }
-.glass-danger  { background-color: var(--color-danger-bg, var(--glass-bg)); border-color: var(--color-danger-border, var(--glass-border)); }
-.glass-info    { background-color: var(--color-info-bg, var(--glass-bg)); border-color: var(--color-info-border, var(--glass-border)); }
+.glass-primary { 
+  background-color: var(--glass-primary-bg); 
+  border-color: var(--glass-primary-border); 
+}
+
+.glass-success { 
+  background-color: var(--glass-success-bg); 
+  border-color: var(--glass-success-border); 
+}
+
+.glass-warning { 
+  background-color: var(--glass-warning-bg); 
+  border-color: var(--glass-warning-border); 
+}
+
+.glass-danger { 
+  background-color: var(--glass-danger-bg); 
+  border-color: var(--glass-danger-border); 
+}
+
+.glass-info { 
+  background-color: var(--glass-info-bg); 
+  border-color: var(--glass-info-border); 
+}
 
 /* Button + Glass combination */
 .filled.glass {
