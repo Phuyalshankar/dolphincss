@@ -1,858 +1,567 @@
+// App.jsx - Modal Test with Global Classes
 import React, { useState, useEffect } from 'react';
-import './dolphin-css/App.css'
-import { 
-  Mail, Search, User, Lock, Eye, EyeOff, Check, X, 
-  Moon, Sun, Palette, AlertCircle, Info,
-  Phone, CreditCard, MapPin, Calendar, Clock,
-  Upload, Camera, Plus, Minus
-} from 'lucide-react';
+import './dolphin-css/App.css';
 
-const App = () => {
-  // Radio Button States
-  const [radioValue, setRadioValue] = useState('left');
-  const [horizontalRadioValue, setHorizontalRadioValue] = useState('male');
-  
-  // Checkbox States
-  const [checkboxState, setCheckboxState] = useState(true);
-  const [checkboxStates, setCheckboxStates] = useState({
-    primary: true,
-    secondary: false,
-    success: true,
-    warning: false,
-    danger: false,
-    info: true
-  });
-  
-  // Input Field States
-  const [floatingLabelText, setFloatingLabelText] = useState('');
-  const [emailText, setEmailText] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [searchText, setSearchText] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  
-  // Select States
-  const [country, setCountry] = useState('');
-  const [category, setCategory] = useState('');
-  
-  // Toggle States
-  const [isDarkMode, setIsDarkMode] = useState(false);
+function App() {
   const [currentTheme, setCurrentTheme] = useState('dolphin');
-  const [showPassword, setShowPassword] = useState(false);
+  const [currentMode, setCurrentMode] = useState('light');
+  const [activeOverlay, setActiveOverlay] = useState(null);
   
-  // Validation States
-  const [isEmailValid, setIsEmailValid] = useState(true);
-  const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [errors, setErrors] = useState({});
-  
-  // UI States
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('inputs');
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('basic');
 
-  // Theme and Dark Mode Logic
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    document.documentElement.setAttribute('data-theme-mode', isDarkMode ? 'dark' : 'light');
+    const savedTheme = localStorage.getItem('theme') || 'dolphin';
+    const savedMode = localStorage.getItem('mode') || 'light';
     
-    if (currentTheme === 'dolphin') {
-      document.body.className = isDarkMode ? 'deep-ocean-gradient' : 'ocean-gradient';
-    } else {
-      document.body.className = isDarkMode ? 'himalayan-night-gradient' : 'himalayan-sunrise-gradient';
-    }
-  }, [isDarkMode, currentTheme]);
+    setTheme(savedTheme);
+    setMode(savedMode);
+  }, []);
 
-  // Validation Functions
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+  const setTheme = (theme) => {
+    document.documentElement.dataset.theme = theme;
+    setCurrentTheme(theme);
+    localStorage.setItem('theme', theme);
   };
 
-  const validatePassword = (password) => {
-    return password.length >= 8;
+  const setMode = (mode) => {
+    document.documentElement.dataset.themeMode = mode;
+    setCurrentMode(mode);
+    localStorage.setItem('mode', mode);
   };
 
-  const handleEmailChange = (e) => {
-    const value = e.target.value;
-    setEmailText(value);
-    setIsEmailValid(validateEmail(value));
+  const testOverlay = (type) => {
+    setActiveOverlay(type);
+    setTimeout(() => setActiveOverlay(null), 2000);
   };
 
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-    setIsPasswordValid(validatePassword(value));
+  const openModal = (type) => {
+    setModalType(type);
+    setIsModalOpen(true);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = {};
-    
-    if (!emailText) newErrors.email = 'Email is required';
-    else if (!validateEmail(emailText)) newErrors.email = 'Invalid email format';
-    
-    if (!password) newErrors.password = 'Password is required';
-    else if (!validatePassword(password)) newErrors.password = 'Password must be at least 8 characters';
-    
-    if (!floatingLabelText) newErrors.floatingLabel = 'This field is required';
-    
-    setErrors(newErrors);
-    
-    if (Object.keys(newErrors).length === 0) {
-      setIsLoading(true);
-      setTimeout(() => {
-        alert('Form submitted successfully!');
-        setIsLoading(false);
-      }, 1500);
-    }
-  };
-
-  const toggleTheme = () => {
-    setCurrentTheme(prev => prev === 'dolphin' ? 'danphe' : 'dolphin');
-  };
-
-  const renderRadioGroups = () => {
-    return (
-      <div className="space-y-6">
-        <div className="radio-group">
-          <label className="text-sm font-medium color-text-muted mb-2 block">Basic Radio Selection</label>
-          <div className="radio-item">
-            <input 
-              type="radio" 
-              id="left" 
-              name="alignment" 
-              value="left"
-              checked={radioValue === 'left'}
-              onChange={(e) => setRadioValue(e.target.value)}
-            />
-            <label htmlFor="left" className="radio-label">Left Align</label>
-          </div>
-          <div className="radio-item">
-            <input 
-              type="radio" 
-              id="center" 
-              name="alignment" 
-              value="center"
-              checked={radioValue === 'center'}
-              onChange={(e) => setRadioValue(e.target.value)}
-            />
-            <label htmlFor="center" className="radio-label">Center Align</label>
-          </div>
-          <div className="radio-item">
-            <input 
-              type="radio" 
-              id="right" 
-              name="alignment" 
-              value="right"
-              checked={radioValue === 'right'}
-              onChange={(e) => setRadioValue(e.target.value)}
-            />
-            <label htmlFor="right" className="radio-label">Right Align</label>
-          </div>
-        </div>
-
-        <div>
-          <label className="text-sm font-medium color-text-muted mb-2 block">Gender Selection</label>
-          <div className="radio-group horizontal">
-            <div className="radio-item">
-              <input 
-                type="radio" 
-                id="male" 
-                name="gender" 
-                value="male"
-                checked={horizontalRadioValue === 'male'}
-                onChange={(e) => setHorizontalRadioValue(e.target.value)}
-              />
-              <label htmlFor="male" className="radio-label">Male</label>
-            </div>
-            <div className="radio-item">
-              <input 
-                type="radio" 
-                id="female" 
-                name="gender" 
-                value="female"
-                checked={horizontalRadioValue === 'female'}
-                onChange={(e) => setHorizontalRadioValue(e.target.value)}
-              />
-              <label htmlFor="female" className="radio-label">Female</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderCheckboxes = () => {
-    return (
-      <div className="space-y-6">
-        <div className="space-y-4">
-          <label className="text-sm font-medium color-text-muted mb-2 block">Color Variants</label>
-          <div className="flex flex-wrap gap-4">
-            <label className="flex items-center gap-2">
-              <input 
-                type="checkbox" 
-                className="primary"
-                checked={checkboxStates.primary}
-                onChange={(e) => setCheckboxStates({...checkboxStates, primary: e.target.checked})}
-              />
-              <span className="color-text">Primary</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input 
-                type="checkbox" 
-                className="secondary"
-                checked={checkboxStates.secondary}
-                onChange={(e) => setCheckboxStates({...checkboxStates, secondary: e.target.checked})}
-              />
-              <span className="color-text">Secondary</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input 
-                type="checkbox" 
-                className="success"
-                checked={checkboxStates.success}
-                onChange={(e) => setCheckboxStates({...checkboxStates, success: e.target.checked})}
-              />
-              <span className="color-text">Success</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input 
-                type="checkbox" 
-                className="warning"
-                checked={checkboxStates.warning}
-                onChange={(e) => setCheckboxStates({...checkboxStates, warning: e.target.checked})}
-              />
-              <span className="color-text">Warning</span>
-            </label>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <label className="text-sm font-medium color-text-muted mb-2 block">Preferences</label>
-          <label className="flex items-center gap-2">
-            <input 
-              type="checkbox" 
-              checked={checkboxState}
-              onChange={(e) => setCheckboxState(e.target.checked)}
-            />
-            <span className="color-text">Accept terms and conditions</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input 
-              type="checkbox" 
-              checked={true}
-              onChange={() => {}}
-            />
-            <span className="color-text">Enable notifications</span>
-          </label>
-        </div>
-      </div>
-    );
-  };
-
-  const renderSelects = () => {
-    const countries = [
-      { value: '', label: 'Select Country' },
-      { value: 'us', label: 'United States' },
-      { value: 'uk', label: 'United Kingdom' },
-      { value: 'ca', label: 'Canada' },
-      { value: 'np', label: 'Nepal' },
-      { value: 'in', label: 'India' }
-    ];
-
-    const categories = [
-      { value: '', label: 'Select Category' },
-      { value: 'tech', label: 'Technology' },
-      { value: 'design', label: 'Design' },
-      { value: 'business', label: 'Business' }
-    ];
-
-    return (
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="text-sm font-medium color-text-muted mb-2 block">Country</label>
-            <div className="select-wrapper">
-              <select 
-                className="select"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              >
-                {countries.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="text-sm font-medium color-text-muted mb-2 block">Category</label>
-            <div className="select-wrapper">
-              <select 
-                className="select"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {categories.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <label className="text-sm font-medium color-text-muted mb-2 block">Theme Variants</label>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <div className="select-wrapper">
-                <select className="select primary">
-                  <option>Primary Theme</option>
-                </select>
-              </div>
-              <p className="text-xs text-center color-text-muted">Primary</p>
-            </div>
-            <div className="space-y-2">
-              <div className="select-wrapper">
-                <select className="select success">
-                  <option>Success Theme</option>
-                </select>
-              </div>
-              <p className="text-xs text-center color-text-muted">Success</p>
-            </div>
-            <div className="space-y-2">
-              <div className="select-wrapper">
-                <select className="select warning">
-                  <option>Warning Theme</option>
-                </select>
-              </div>
-              <p className="text-xs text-center color-text-muted">Warning</p>
-            </div>
-            <div className="space-y-2">
-              <div className="select-wrapper">
-                <select className="select danger">
-                  <option>Danger Theme</option>
-                </select>
-              </div>
-              <p className="text-xs text-center color-text-muted">Danger</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderFloatingLabels = () => {
-    return (
-      <div className="space-y-6">
-        {/* Basic Floating Label */}
-        <div className="floatinglabel">
-          <input
-            type="text"
-            id="floating-name"
-            className="floatinglabel-input"
-            placeholder=" "
-            value={floatingLabelText}
-            onChange={(e) => setFloatingLabelText(e.target.value)}
-          />
-          <label htmlFor="floating-name" className="floatinglabel-label">Full Name</label>
-          {errors.floatingLabel && (
-            <div className="text-xs text-[var(--color-danger)] mt-2">
-              {errors.floatingLabel}
-            </div>
-          )}
-        </div>
-
-        {/* Floating Label with Left Icon */}
-        <div className="floatinglabel input-icon-left relative">
-          <Mail className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none" />
-          <input
-            type="email"
-            id="floating-email"
-            className="floatinglabel-input pl-10"
-            placeholder=" "
-            value={emailText}
-            onChange={handleEmailChange}
-          />
-          <label htmlFor="floating-email" className="floatinglabel-label left-10">Email Address</label>
-          {!isEmailValid && emailText && (
-            <AlertCircle className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[var(--color-danger)] z-10 pointer-events-none" />
-          )}
-          {errors.email && (
-            <div className="text-xs text-[var(--color-danger)] mt-2">
-              {errors.email}
-            </div>
-          )}
-        </div>
-
-        {/* Floating Label with Both Icons */}
-        <div className="floatinglabel input-icon-both password-toggle relative">
-          <Lock className="icon-left w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none" />
-          <input
-            type={showPassword ? "text" : "password"}
-            id="floating-password"
-            className="floatinglabel-input pl-10 pr-10"
-            placeholder=" "
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <label htmlFor="floating-password" className="floatinglabel-label left-10">Password</label>
-          <button 
-            type="button"
-            className="icon-right absolute right-3 top-1/2 transform -translate-y-1/2 z-10 bg-transparent border-none cursor-pointer"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-          </button>
-          {errors.password && (
-            <div className="text-xs text-[var(--color-danger)] mt-2">
-              {errors.password}
-            </div>
-          )}
-        </div>
-
-        {/* Floating Label with Right Icon */}
-        <div className="floatinglabel input-icon-right relative">
-          <input
-            type="text"
-            id="floating-search"
-            className="floatinglabel-input pr-10"
-            placeholder=" "
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <label htmlFor="floating-search" className="floatinglabel-label">Search</label>
-          <Search className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none" />
-        </div>
-
-        {/* Color Variants */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="floatinglabel primary">
-            <input
-              type="text"
-              id="floating-primary"
-              className="floatinglabel-input"
-              placeholder=" "
-            />
-            <label htmlFor="floating-primary" className="floatinglabel-label">Primary Field</label>
-          </div>
-
-          <div className="floatinglabel gradient primary">
-            <input
-              type="text"
-              id="floating-gradient"
-              className="floatinglabel-input"
-              placeholder=" "
-            />
-            <label htmlFor="floating-gradient" className="floatinglabel-label">Gradient Field</label>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const renderStandardLabels = () => {
-    return (
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Basic Standard Label */}
-          <div className="standardlabel">
-            <input
-              type="text"
-              id="standard-name"
-              className="standardlabel-input"
-              placeholder=" "
-              value={floatingLabelText}
-              onChange={(e) => setFloatingLabelText(e.target.value)}
-            />
-            <label htmlFor="standard-name" className="standardlabel-label">Username</label>
-          </div>
-
-          {/* Standard Label with Left Icon */}
-          <div className="standardlabel input-icon-left relative">
-            <Phone className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none" />
-            <input
-              type="tel"
-              id="standard-phone"
-              className="standardlabel-input pl-10"
-              placeholder=" "
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <label htmlFor="standard-phone" className="standardlabel-label left-10">Phone Number</label>
-          </div>
-        </div>
-
-        {/* Standard Label with Both Icons */}
-        <div className="standardlabel input-icon-both relative">
-          <CreditCard className="icon-left w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none" />
-          <input
-            type="text"
-            id="standard-card"
-            className="standardlabel-input pl-10 pr-10"
-            placeholder=" "
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-          />
-          <label htmlFor="standard-card" className="standardlabel-label left-10">Card Number</label>
-          <div className="icon-right absolute right-3 top-1/2 transform -translate-y-1/2 z-10">
-            <Info className="w-5 h-5 cursor-help" />
-          </div>
-        </div>
-
-        {/* Standard Label with Right Icon */}
-        <div className="standardlabel input-icon-right relative">
-          <input
-            type="text"
-            id="standard-address"
-            className="standardlabel-input pr-10"
-            placeholder=" "
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <label htmlFor="standard-address" className="standardlabel-label">Address</label>
-          <MapPin className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 z-10 pointer-events-none" />
-        </div>
-      </div>
-    );
-  };
-
-  const renderRegularInputs = () => {
-    return (
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left Icon Input */}
-          <div className="input-icon-left relative">
-            <User className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Username"
-              className="w-full pl-10 pr-3 py-2 rounded-md bg-[var(--color-surface)]"
-              value={floatingLabelText}
-              onChange={(e) => setFloatingLabelText(e.target.value)}
-            />
-          </div>
-
-          {/* Right Icon Input */}
-          <div className="input-icon-right relative">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full pl-3 pr-10 py-2 rounded-md bg-[var(--color-surface)]"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-            <Search className="w-5 h-5 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-          </div>
-        </div>
-
-        {/* Both Icons Input - Password Toggle */}
-        <div className="input-icon-both password-toggle relative">
-          <Lock className="icon-left w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Enter password"
-            className="w-full pl-10 pr-10 py-2 rounded-md bg-[var(--color-surface)]"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <button 
-            type="button"
-            className="icon-right absolute right-3 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-          </button>
-        </div>
-
-        {/* Email Input with Validation */}
-        <div className="input-icon-left relative">
-          <Mail className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-          <input
-            type="email"
-            placeholder="Email address"
-            className={`w-full pl-10 pr-3 py-2 rounded-md bg-[var(--color-surface)] ${!isEmailValid && emailText ? '!border-[var(--color-danger)]' : ''}`}
-            value={emailText}
-            onChange={handleEmailChange}
-          />
-        </div>
-      </div>
-    );
-  };
-
-  const renderAdvancedInputs = () => {
-    return (
-      <div className="space-y-6">
-        {/* File Upload */}
-        <div>
-          <label className="text-sm font-medium color-text-muted mb-2 block">File Upload</label>
-          <div className="border-2 border-dashed border-[var(--color-border)] rounded-lg p-6 text-center">
-            <input
-              type="file"
-              id="file-upload"
-              className="hidden"
-              onChange={() => {}}
-            />
-            <label htmlFor="file-upload" className="cursor-pointer">
-              <Upload className="w-8 h-8 mx-auto mb-2 color-text-muted" />
-              <p className="color-text">Click to upload or drag and drop</p>
-              <p className="text-sm color-text-muted mt-1">SVG, PNG, JPG or GIF (max. 5MB)</p>
-            </label>
-          </div>
-        </div>
-
-        {/* Date and Time */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label className="text-sm font-medium color-text-muted mb-2 block">Date</label>
-            <div className="input-icon-left relative">
-              <Calendar className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-              <input
-                type="date"
-                className="w-full pl-10 pr-3 py-2 rounded-md bg-[var(--color-surface)]"
-              />
-            </div>
-          </div>
-          <div>
-            <label className="text-sm font-medium color-text-muted mb-2 block">Time</label>
-            <div className="input-icon-left relative">
-              <Clock className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
-              <input
-                type="time"
-                className="w-full pl-10 pr-3 py-2 rounded-md bg-[var(--color-surface)]"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Textarea */}
-        <div>
-          <label className="text-sm font-medium color-text-muted mb-2 block">Bio</label>
-          <textarea
-            rows="4"
-            className="w-full px-3 py-2 rounded-lg bg-[var(--color-surface)] resize-none"
-            placeholder="Tell us about yourself..."
-          />
-          <p className="text-xs color-text-muted mt-1 text-right">0/500 characters</p>
-        </div>
-      </div>
-    );
-  };
-
-  const renderFormActions = () => {
-    return (
-      <div className="space-y-6">
-        {/* Submit Button */}
-        <button
-          onClick={handleSubmit}
-          disabled={isLoading}
-          className={`w-full py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 ${
-            isLoading 
-              ? 'bg-[var(--color-border)] cursor-not-allowed' 
-              : 'bg-[var(--color-primary)] text-white hover:opacity-90 hover:scale-[1.02]'
-          }`}
-        >
-          {isLoading ? (
-            <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Processing...
-            </>
-          ) : (
-            <>
-              <Check className="w-5 h-5" />
-              Submit Form
-            </>
-          )}
-        </button>
-
-        {/* Action Buttons */}
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            type="button"
-            onClick={() => {
-              setFloatingLabelText('');
-              setEmailText('');
-              setPassword('');
-              setSearchText('');
-              setPhoneNumber('');
-              setCardNumber('');
-              setErrors({});
-            }}
-            className="py-2 px-4 rounded-lg border-2 border-[var(--color-border)] hover:bg-[var(--color-border)] transition-colors"
-          >
-            Clear Form
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsLoading(!isLoading)}
-            className="py-2 px-4 rounded-lg bg-[var(--color-info)] text-white hover:opacity-90 transition-colors"
-          >
-            {isLoading ? 'Stop Loading' : 'Test Loading'}
-          </button>
-        </div>
-      </div>
-    );
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
-    <div className={`min-h-screen p-4 md:p-8 transition-all duration-500 ${currentTheme === 'dolphin' ? 'theme-gradient-dolphin' : 'theme-gradient-danphe'}`}>
+    <div className="min-h-screen p-8" 
+         style={{ 
+           backgroundColor: 'var(--color-surface-alt)',
+           color: 'var(--color-text)'
+         }}>
       
-      {/* Theme Toggle & Container */}
-      <div className={`p-4 md:p-8 space-y-8 max-w-7xl mx-auto rounded-xl glass ${isDarkMode ? 'bg-surface-dark' : 'bg-surface'}`}>
-
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center pb-4 border-b border-[var(--color-border)] gap-4">
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl md:text-3xl font-bold color-text">🎨 Input Components Demo</h1>
-            <span className="text-sm theme-color px-3 py-1 rounded-full glass-sm">
-              {currentTheme === 'dolphin' ? '🌊 Dolphin' : '🇳🇵 Danphe'} Theme
-            </span>
-          </div>
+      {/* Theme Controls */}
+      <div className="max-w-6xl mx-auto mb-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">
+            <span style={{ color: 'var(--color-primary)' }}>DolphinCSS</span> Test
+          </h1>
           
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2">
             <button
-              onClick={toggleTheme}
-              className="px-4 py-2 rounded-lg flex items-center gap-2 bg-[var(--color-primary)] text-white shadow-md transition-all duration-300 hover:opacity-90 text-sm"
+              onClick={() => setTheme('dolphin')}
+              className="px-3 py-1 rounded"
+              style={{
+                backgroundColor: currentTheme === 'dolphin' ? 'var(--color-primary)' : 'var(--color-surface)',
+                color: currentTheme === 'dolphin' ? 'white' : 'var(--color-text)',
+                border: '1px solid var(--color-border)'
+              }}
             >
-              <Palette className="w-4 h-4" />
-              {currentTheme === 'dolphin' ? '🇳🇵 Danphe' : '🌊 Dolphin'}
+              Dolphin
             </button>
-            
             <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="px-4 py-2 rounded-lg flex items-center gap-2 glass border border-[var(--color-border)] color-text transition-all duration-300 hover:bg-[var(--color-border)] text-sm"
+              onClick={() => setTheme('danphe')}
+              className="px-3 py-1 rounded"
+              style={{
+                backgroundColor: currentTheme === 'danphe' ? 'var(--color-primary)' : 'var(--color-surface)',
+                color: currentTheme === 'danphe' ? 'white' : 'var(--color-text)',
+                border: '1px solid var(--color-border)'
+              }}
             >
-              {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              {isDarkMode ? 'Light' : 'Dark'}
+              Danphe
             </button>
-          </div>
-        </header>
-
-        {/* Navigation Tabs */}
-        <div className="flex space-x-1 rounded-lg bg-[var(--color-surface)] p-1">
-          {['inputs', 'radio', 'checkboxes', 'selects', 'advanced', 'actions'].map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 px-4 rounded-md transition-all duration-300 capitalize ${
-                activeTab === tab 
-                  ? 'bg-[var(--color-primary)] text-white shadow-md' 
-                  : 'hover:bg-[var(--color-border)]'
-              }`}
+              onClick={() => setMode(currentMode === 'light' ? 'dark' : 'light')}
+              className="px-3 py-1 rounded"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text)',
+                border: '1px solid var(--color-border)'
+              }}
             >
-              {tab}
+              {currentMode === 'light' ? '🌙 Dark' : '☀️ Light'}
             </button>
-          ))}
-        </div>
-
-        {/* Main Content Area */}
-        <div className="space-y-8">
-          {/* Current Tab Title */}
-          <h2 className="text-xl md:text-2xl font-bold color-text capitalize">
-            {activeTab === 'inputs' && '📝 Text Inputs'}
-            {activeTab === 'radio' && '🔘 Radio Buttons'}
-            {activeTab === 'checkboxes' && '✅ Checkboxes'}
-            {activeTab === 'selects' && '📋 Select Dropdowns'}
-            {activeTab === 'advanced' && '⚡ Advanced Inputs'}
-            {activeTab === 'actions' && '🎯 Form Actions'}
-          </h2>
-
-          {/* Tab Content */}
-          <div className="p-6 rounded-xl glass border border-[var(--color-border)]">
-            {activeTab === 'inputs' && (
-              <div className="space-y-8">
-                <section>
-                  <h3 className="text-lg font-semibold mb-4 color-text flex items-center gap-2">
-                    <span className="p-2 rounded-lg bg-[var(--color-primary)] text-white">
-                      1
-                    </span>
-                    Floating Label Inputs
-                  </h3>
-                  {renderFloatingLabels()}
-                </section>
-
-                <section>
-                  <h3 className="text-lg font-semibold mb-4 color-text flex items-center gap-2">
-                    <span className="p-2 rounded-lg bg-[var(--color-secondary)] text-white">
-                      2
-                    </span>
-                    Standard Label Inputs
-                  </h3>
-                  {renderStandardLabels()}
-                </section>
-
-                <section>
-                  <h3 className="text-lg font-semibold mb-4 color-text flex items-center gap-2">
-                    <span className="p-2 rounded-lg bg-[var(--color-success)] text-white">
-                      3
-                    </span>
-                    Regular Inputs with Icons
-                  </h3>
-                  {renderRegularInputs()}
-                </section>
-              </div>
-            )}
-
-            {activeTab === 'radio' && renderRadioGroups()}
-            {activeTab === 'checkboxes' && renderCheckboxes()}
-            {activeTab === 'selects' && renderSelects()}
-            {activeTab === 'advanced' && renderAdvancedInputs()}
-            {activeTab === 'actions' && renderFormActions()}
-          </div>
-
-          {/* Live Preview */}
-          <div className="p-6 rounded-xl glass border border-[var(--color-border)]">
-            <h3 className="text-lg font-semibold mb-4 color-text">👁️ Live Preview</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="text-sm font-medium color-text-muted mb-2">Form Data</h4>
-                <div className="space-y-2 text-sm">
-                  <p><span className="color-text-muted">Name:</span> {floatingLabelText || 'Empty'}</p>
-                  <p><span className="color-text-muted">Email:</span> {emailText || 'Empty'}</p>
-                  <p><span className="color-text-muted">Password:</span> {password ? '••••••••' : 'Empty'}</p>
-                  <p><span className="color-text-muted">Radio Selected:</span> {radioValue}</p>
-                </div>
-              </div>
-              <div>
-                <h4 className="text-sm font-medium color-text-muted mb-2">Validation Status</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${isEmailValid && emailText ? 'bg-[var(--color-success)]' : !emailText ? 'bg-[var(--color-border)]' : 'bg-[var(--color-danger)]'}`}></div>
-                    <span>Email: {isEmailValid && emailText ? 'Valid' : !emailText ? 'Not entered' : 'Invalid'}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${isPasswordValid && password ? 'bg-[var(--color-success)]' : !password ? 'bg-[var(--color-border)]' : 'bg-[var(--color-danger)]'}`}></div>
-                    <span>Password: {isPasswordValid && password ? 'Valid' : !password ? 'Not entered' : 'Too short'}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${Object.keys(errors).length === 0 ? 'bg-[var(--color-success)]' : 'bg-[var(--color-danger)]'}`}></div>
-                    <span>Form Errors: {Object.keys(errors).length}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="pt-6 border-t border-[var(--color-border)]">
-          <div className="flex flex-col md:flex-row justify-between gap-4 text-sm color-text-muted">
-            <div>
-              <p>Current Theme: <span className="theme-color font-medium">{currentTheme === 'dolphin' ? '🌊 Dolphin' : '🇳🇵 Danphe'}</span></p>
-              <p>Mode: <span className="font-medium">{isDarkMode ? '🌙 Dark' : '☀️ Light'}</span></p>
-            </div>
-            <div className="md:text-right">
-              <p>✅ Simple & Clean Design</p>
-              <p>✅ Fixed Icon Positioning</p>
-              <p>✅ Working Validation</p>
-            </div>
+        {/* Current Status */}
+        <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+          <div className="flex gap-4">
+            <span>Theme: <strong style={{ color: 'var(--color-primary)' }}>{currentTheme}</strong></span>
+            <span>Mode: <strong>{currentMode}</strong></span>
           </div>
-        </footer>
+        </div>
       </div>
+
+      {/* ===== MODAL TEST SECTION ===== */}
+      <div className="max-w-6xl mx-auto mb-12">
+        <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+          🎯 Modal Test - Global Classes
+        </h2>
+
+        {/* Modal Buttons Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <button 
+            onClick={() => openModal('basic')}
+            className="filled primary btn-lg"
+          >
+            Basic Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('success')}
+            className="filled success btn-lg"
+          >
+            Success Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('warning')}
+            className="filled warning btn-lg"
+          >
+            Warning Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('danger')}
+            className="filled danger btn-lg"
+          >
+            Danger Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('outlined')}
+            className="outlined primary btn-lg"
+          >
+            Outlined Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('gradient')}
+            className="gradient primary btn-lg"
+          >
+            Gradient Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('glass')}
+            className="glass btn-lg"
+            style={{ color: 'var(--color-text)' }}
+          >
+            Glass Modal
+          </button>
+          
+          <button 
+            onClick={() => openModal('glow')}
+            className="filled info btn-lg glow"
+          >
+            Glow Modal
+          </button>
+        </div>
+
+        {/* Modal Examples Preview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          {/* Size Examples */}
+          <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <h3 className="font-bold mb-2">Sizes</h3>
+            <div className="space-y-2">
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-surface-alt)' }}>modal-panel.sm → small</div>
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-surface-alt)' }}>modal-panel.md → medium</div>
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-surface-alt)' }}>modal-panel.lg → large</div>
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-surface-alt)' }}>modal-panel.xl → extra large</div>
+            </div>
+          </div>
+
+          {/* Color Examples */}
+          <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <h3 className="font-bold mb-2">Colors</h3>
+            <div className="space-y-2">
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-primary)', color: 'white' }}>primary</div>
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-success)', color: 'white' }}>success</div>
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-warning)', color: 'white' }}>warning</div>
+              <div className="p-2 rounded" style={{ backgroundColor: 'var(--color-danger)', color: 'white' }}>danger</div>
+            </div>
+          </div>
+
+          {/* Variants Examples */}
+          <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>
+            <h3 className="font-bold mb-2">Variants</h3>
+            <div className="space-y-2">
+              <div className="p-2 rounded border-2 border-primary">outlined.primary</div>
+              <div className="p-2 rounded gradient primary text-white">gradient.primary</div>
+              <div className="p-2 rounded glass">glass</div>
+              <div className="p-2 rounded glow" style={{ boxShadow: 'var(--glow-primary)' }}>glow</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== OVERLAY TEST SECTION ===== (Same as before) */}
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--color-text)' }}>
+          🎨 Overlay Test
+        </h2>
+
+        {/* Simple Overlay Test Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          {/* 1. Basic Overlay on Div */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('basic')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-border)'
+              }}
+            >
+              <div className="text-3xl mb-2">📦</div>
+              <div className="font-bold">Basic Overlay</div>
+              <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>Click me</div>
+              
+              {activeOverlay === 'basic' && (
+                <div className="overlay overlay-5 overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 2. Primary Color Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('primary')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-primary)'
+              }}
+            >
+              <div className="text-3xl mb-2">🎨</div>
+              <div className="font-bold">Primary Overlay</div>
+              <div className="text-sm" style={{ color: 'var(--color-primary)' }}>var(--color-primary)</div>
+              
+              {activeOverlay === 'primary' && (
+                <div className="overlay overlay-primary-5 overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 3. Success Overlay with Blur */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('success')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-success)'
+              }}
+            >
+              <div className="text-3xl mb-2">✅</div>
+              <div className="font-bold">Success + Blur</div>
+              <div className="text-sm" style={{ color: 'var(--color-success)' }}>with blur-lg</div>
+              
+              {activeOverlay === 'success' && (
+                <div className="overlay overlay-success-5 overlay-blur-lg overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 4. Warning Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('warning')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-warning)'
+              }}
+            >
+              <div className="text-3xl mb-2">⚠️</div>
+              <div className="font-bold">Warning (30%)</div>
+              <div className="text-sm" style={{ color: 'var(--color-warning)' }}>overlay-3</div>
+              
+              {activeOverlay === 'warning' && (
+                <div className="overlay overlay-warning-3 overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 5. Danger Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('danger')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-danger)'
+              }}
+            >
+              <div className="text-3xl mb-2">❌</div>
+              <div className="font-bold">Danger (70%)</div>
+              <div className="text-sm" style={{ color: 'var(--color-danger)' }}>overlay-7</div>
+              
+              {activeOverlay === 'danger' && (
+                <div className="overlay overlay-danger-7 overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 6. Glass Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('glass')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                background: 'url("https://picsum.photos/200/200") center/cover',
+                border: '2px solid var(--color-border)'
+              }}
+            >
+              <div className="relative z-10">
+                <div className="text-3xl mb-2">🥂</div>
+                <div className="font-bold text-white">Glass Overlay</div>
+                <div className="text-sm text-white/80">backdrop blur</div>
+              </div>
+              
+              {activeOverlay === 'glass' && (
+                <div className="overlay overlay-glass overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 7. Gradient Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('gradient')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-border)'
+              }}
+            >
+              <div className="text-3xl mb-2">🌈</div>
+              <div className="font-bold">Gradient Overlay</div>
+              <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>with opacity 0.4</div>
+              
+              {activeOverlay === 'gradient' && (
+                <div className="overlay gradient primary overlay-4 overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 8. Combined Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('combined')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-info)'
+              }}
+            >
+              <div className="text-3xl mb-2">🎯</div>
+              <div className="font-bold">Combined</div>
+              <div className="text-sm" style={{ color: 'var(--color-info)' }}>primary + blur + 50%</div>
+              
+              {activeOverlay === 'combined' && (
+                <div className="overlay overlay-primary-5 overlay-blur-xl overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+
+          {/* 9. Pattern Overlay */}
+          <div className="relative group">
+            <div 
+              onClick={() => testOverlay('pattern')}
+              className="p-8 rounded-lg text-center cursor-pointer transition-all"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '2px solid var(--color-border)'
+              }}
+            >
+              <div className="text-3xl mb-2">🔷</div>
+              <div className="font-bold">Pattern Overlay</div>
+              <div className="text-sm" style={{ color: 'var(--color-text-muted)' }}>dots pattern</div>
+              
+              {activeOverlay === 'pattern' && (
+                <div className="overlay overlay-pattern-dots overlay-primary overlay-absolute inset-0 rounded-lg"></div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Active Overlay Indicator */}
+        {activeOverlay && (
+          <div className="mt-8 p-4 rounded-lg text-center animate-pulse"
+               style={{
+                 backgroundColor: 'var(--color-surface)',
+                 border: '2px solid var(--color-primary)'
+               }}>
+            <p className="font-bold" style={{ color: 'var(--color-primary)' }}>
+              ✨ Active Overlay: {activeOverlay} (disappears in 2 seconds)
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* ===== MODAL ===== */}
+      {isModalOpen && (
+        <div className="modal-container">
+          {/* Global overlay */}
+          <div className="overlay overlay-dark overlay-fixed inset-0" onClick={closeModal}></div>
+          
+          <div className="modal-wrapper">
+            <div className={`
+              modal-panel 
+              ${modalType === 'basic' ? 'md' : ''}
+              ${modalType === 'success' ? 'md success filled' : ''}
+              ${modalType === 'warning' ? 'md warning filled' : ''}
+              ${modalType === 'danger' ? 'md danger filled' : ''}
+              ${modalType === 'outlined' ? 'md outlined primary' : ''}
+              ${modalType === 'gradient' ? 'md gradient primary' : ''}
+              ${modalType === 'glass' ? 'md glass' : ''}
+              ${modalType === 'glow' ? 'md info filled glow' : ''}
+            `}>
+              
+              <div className="modal-header">
+                <h3>
+                  {modalType === 'basic' && '🐬 Basic Modal'}
+                  {modalType === 'success' && '✅ Success Modal'}
+                  {modalType === 'warning' && '⚠️ Warning Modal'}
+                  {modalType === 'danger' && '❌ Danger Modal'}
+                  {modalType === 'outlined' && '🎨 Outlined Modal'}
+                  {modalType === 'gradient' && '🌈 Gradient Modal'}
+                  {modalType === 'glass' && '🥂 Glass Modal'}
+                  {modalType === 'glow' && '✨ Glow Modal'}
+                </h3>
+                <button onClick={closeModal}>✕</button>
+              </div>
+
+              <div className="modal-body">
+                <div className="text-center mb-4">
+                  <div className="text-4xl mb-2">
+                    {modalType === 'basic' && '🐬'}
+                    {modalType === 'success' && '✅'}
+                    {modalType === 'warning' && '⚠️'}
+                    {modalType === 'danger' && '❌'}
+                    {modalType === 'outlined' && '🎨'}
+                    {modalType === 'gradient' && '🌈'}
+                    {modalType === 'glass' && '🥂'}
+                    {modalType === 'glow' && '✨'}
+                  </div>
+                  <h4 className="font-semibold">This is a {modalType} modal</h4>
+                  <p className="text-sm mt-2">
+                    Using global classes: 
+                    <code className="ml-2 px-2 py-1 rounded" style={{ backgroundColor: 'var(--color-surface-alt)' }}>
+                      {modalType === 'basic' && 'md'}
+                      {modalType === 'success' && 'md success filled'}
+                      {modalType === 'warning' && 'md warning filled'}
+                      {modalType === 'danger' && 'md danger filled'}
+                      {modalType === 'outlined' && 'md outlined primary'}
+                      {modalType === 'gradient' && 'md gradient primary'}
+                      {modalType === 'glass' && 'md glass'}
+                      {modalType === 'glow' && 'md info filled glow'}
+                    </code>
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <p><strong>Theme:</strong> {currentTheme}</p>
+                  <p><strong>Mode:</strong> {currentMode}</p>
+                  <p><strong>Size:</strong> md (448px)</p>
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <button className="outlined secondary btn-sm" onClick={closeModal}>
+                  Cancel
+                </button>
+                <button className={`filled ${modalType === 'danger' ? 'danger' : 'primary'} btn-sm`}>
+                  Confirm
+                </button>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+     // Basic - class भित्र सबै
+<div 
+  className="background primary filled lg circle glow"
+  style={{"--bg-primary": "url('/images/profile.jpg')"}}
+/>
+
+// Hero Section
+<div 
+  className="background danphe filled full screen cover center gradient-primary"
+  style={{"--bg-danphe": "url('/images/hero.jpg')"}}
+>
+  <div className="relative z-10 text-white p-8">
+    <h1 className="text-4xl">Welcome</h1>
+  </div>
+</div>
+
+// Card
+<div 
+  className="background secondary rounded-lg lg cover center glow"
+  style={{"--bg-secondary": "url('/images/card.jpg')"}}
+>
+  <div className="p-6 text-white bg-black/50 h-full flex-col-center">
+    <h3>Card Title</h3>
+    <button className="primary filled mt-4">Click</button>
+  </div>
+</div>
+
+// Avatar
+<div 
+  className="background primary circle sm glow glow-pulse"
+  style={{"--bg-primary": "url('/images/avatar.jpg')"}}
+/>
+
+// Glass Card
+<div 
+  className="background glass rounded-xl lg cover center"
+  style={{"--bg-image": "url('/images/glass-bg.jpg')"}}
+>
+  <div className="p-6 text-white">
+    <h3>Glass Effect</h3>
+  </div>
+</div>
+
+// Loading State
+<div 
+  className="background primary filled lg rounded-lg loading"
+  style={{"--bg-primary": "url('/images/loading.jpg')"}}
+/>
+
+// Pattern Background
+<div className="background pattern-dots primary filled full screen">
+  <div className="container py-16">
+    <h1>Pattern Background</h1>
+  </div>
+</div>
+
+// Multiple Effects Combine
+<div 
+  className="background primary circle lg glow glow-pulse gradient-primary overlay-dark-50"
+  style={{"--bg-primary": "url('/images/complex.jpg')"}}
+>
+  <div className="relative z-10 text-white flex-center h-full">
+    Hover Me
+  </div>
+</div>
     </div>
   );
-};
+}
 
 export default App;

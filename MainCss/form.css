@@ -208,19 +208,39 @@
 
   .standardlabel-input {
     @apply w-full px-3 py-2 text-base bg-transparent text-(--color-text);
+    /* मात्र तलको बोर्डर राख्ने */
+    border: none !important;
     border-bottom: 2px solid var(--color-border) !important;
+    border-radius: 0 !important;
     outline: none !important;
     min-height: 2.75rem;
     transition: border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
     line-height: 1.5;
+    
+    /* क्लिक/ट्याप गर्दा कुनै पनि ring हटाउने */
+    -webkit-tap-highlight-color: transparent !important;
   }
 
-  /* FIXED: Clean focus for standard label */
+  /* FIXED: Standard label लागि मात्र तलको underline, ring हटाउने */
   .standardlabel-input:focus {
     @apply outline-none;
     border-color: var(--color-primary) !important;
-    box-shadow: 0 2px 0 0 var(--color-primary);
+    border-width: 0 0 2px 0 !important;
+    /* Ring हटाउने र मात्र तलको shadow राख्ने */
+    box-shadow: 0 2px 0 0 var(--color-primary) !important;
+  }
+  
+  /* Focus-visible पनि fix गर्ने */
+  .standardlabel-input:focus-visible {
+    @apply outline-none;
+    box-shadow: 0 2px 0 0 var(--color-primary) !important;
+  }
+  
+  /* Active state पनि fix गर्ने */
+  .standardlabel-input:active {
+    @apply outline-none;
+    box-shadow: 0 2px 0 0 var(--color-primary) !important;
   }
   
   .standardlabel-input:disabled {
@@ -354,10 +374,18 @@
       color: var(--color-danphe-primary);
     }
     
-    /* Standard label focus */
+    /* Standard label focus - ring हटाउने */
     .standardlabel-input:focus {
       border-color: var(--color-danphe-primary) !important;
-      box-shadow: 0 2px 0 0 var(--color-danphe-primary);
+      box-shadow: 0 2px 0 0 var(--color-danphe-primary) !important;
+    }
+    
+    .standardlabel-input:focus-visible {
+      box-shadow: 0 2px 0 0 var(--color-danphe-primary) !important;
+    }
+    
+    .standardlabel-input:active {
+      box-shadow: 0 2px 0 0 var(--color-danphe-primary) !important;
     }
     
     .standardlabel-input:focus ~ .standardlabel-label {
@@ -383,7 +411,6 @@
     input[type="checkbox"]:focus-visible,
     .select:focus,
     .floatinglabel-input:focus,
-    .standardlabel-input:focus,
     .input-icon-left > input:focus,
     .input-icon-left > select:focus,
     .input-icon-right > input:focus,
@@ -393,13 +420,25 @@
       box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-primary) 25%, transparent);
     }
     
+    /* Standard label dark mode - ring हटाउने */
+    .standardlabel-input:focus {
+      box-shadow: 0 2px 0 0 var(--color-primary) !important;
+    }
+    
+    .standardlabel-input:focus-visible {
+      box-shadow: 0 2px 0 0 var(--color-primary) !important;
+    }
+    
+    .standardlabel-input:active {
+      box-shadow: 0 2px 0 0 var(--color-primary) !important;
+    }
+    
     /* Danphe theme dark mode */
     [data-theme="danphe"] & {
       .radio-item input[type="radio"]:focus-visible,
       input[type="checkbox"]:focus-visible,
       .select:focus,
       .floatinglabel-input:focus,
-      .standardlabel-input:focus,
       .input-icon-left > input:focus,
       .input-icon-left > select:focus,
       .input-icon-right > input:focus,
@@ -407,6 +446,19 @@
       .input-icon-both > input:focus,
       .input-icon-both > select:focus {
         box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-danphe-primary) 25%, transparent);
+      }
+      
+      /* Standard label dark mode Danphe */
+      .standardlabel-input:focus {
+        box-shadow: 0 2px 0 0 var(--color-danphe-primary) !important;
+      }
+      
+      .standardlabel-input:focus-visible {
+        box-shadow: 0 2px 0 0 var(--color-danphe-primary) !important;
+      }
+      
+      .standardlabel-input:active {
+        box-shadow: 0 2px 0 0 var(--color-danphe-primary) !important;
       }
     }
   }

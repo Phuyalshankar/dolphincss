@@ -250,10 +250,45 @@
   .hover-translate-y-6:hover { transform: translateY(-6px); }
 
   /* === CONTINUOUS ANIMATIONS === */
+
+   .hover-scale:hover {
+    transform: scale(1.1) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  /* 2. Scale Down - आकार सानो बनाउने */
+  .hover-shrink:hover {
+    transform: scale(0.95) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  /* 3. Rotate - घुमाउने */
+  .hover-rotate:hover {
+    transform: rotate(10deg) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  /* 4. Lift - माथि उठाउने */
+  .hover-lift:hover {
+    transform: translateY(-5px) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  /* 5. Slide Left - देब्रे सार्ने */
+  .hover-slide-left:hover {
+    transform: translateX(-5px) !important;
+    transition: transform 0.3s ease !important;
+  }
+
+  /* 6. Slide Right - दायाँ सार्ने */
+  .hover-slide-right:hover {
+    transform: translateX(5px) !important;
+    transition: transform 0.3s ease !important;
+  }
   .float {
     animation: dolphin-float 3s ease-in-out infinite;
   }
-
+   
   .float-slow {
     animation: dolphin-float 5s ease-in-out infinite;
   }

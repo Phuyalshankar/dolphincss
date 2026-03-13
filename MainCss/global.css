@@ -1,5 +1,6 @@
 /* ===== Button Variants ===== */
 @layer components {
+  /* Base button styles */
   .filled {
     @apply font-medium rounded-md inline-flex items-center justify-center select-none transition-all duration-200;
   }
@@ -10,57 +11,209 @@
     @apply bg-transparent inline-flex items-center justify-center select-none transition-all duration-200;
   }
 
-  /* ===== Button Colors ===== */
-  .primary.filled { background-color: var(--color-primary); color: var(--color-text); }
-  .primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text); }
-  .primary.plain { color: var(--color-text); }
+  /* ===== Loading States for Buttons ===== */
+  .filled.loading,
+  .outlined.loading,
+  .plain.loading {
+    @apply relative cursor-wait;
+  }
 
-  .secondary.filled { background-color: var(--color-secondary); color: var(--color-text); }
-  .secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text); }
-  .secondary.plain { color: var(--color-text); }
+  .filled.loading:not(.loading-text),
+  .outlined.loading:not(.loading-text),
+  .plain.loading:not(.loading-text) {
+    color: transparent !important;
+  }
 
-  .success.filled { background-color: var(--color-success); color: var(--color-text); }
-  .success.outlined { border: 2px solid var(--color-success); color: var(--color-text); }
-  .success.plain { color: var(--color-text); }
+  .filled.loading:not(.loading-text) > *:not(.loading-spinner),
+  .outlined.loading:not(.loading-text) > *:not(.loading-spinner),
+  .plain.loading:not(.loading-text) > *:not(.loading-spinner) {
+    @apply opacity-0;
+  }
 
-  .warning.filled { background-color: var(--color-warning); color: var(--color-text); }
-  .warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text); }
-  .warning.plain { color: var(--color-text); }
+  .filled.loading::after,
+  .outlined.loading::after,
+  .plain.loading::after {
+    content: '';
+    @apply absolute inset-0 m-auto;
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid;
+    border-top-color: transparent !important;
+    border-radius: 50%;
+    animation: dolphin-spin 0.75s linear infinite;
+  }
 
-  .danger.filled { background-color: var(--color-danger); color: var(--color-text); }
-  .danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text); }
-  .danger.plain { color: var(--color-text); }
+  /* Loading spinner colors based on button color */
+  .primary.loading::after { border-color: var(--color-text); }
+  .secondary.loading::after { border-color: var(--color-text); }
+  .success.loading::after { border-color: var(--color-text); }
+  .warning.loading::after { border-color: var(--color-text); }
+  .danger.loading::after { border-color: var(--color-text); }
+  .info.loading::after { border-color: var(--color-text); }
 
-  .info.filled { background-color: var(--color-info); color: var(--color-text); }
-  .info.outlined { border: 2px solid var(--color-info); color: var(--color-text); }
-  .info.plain { color: var(--color-text); }
+  /* Loading text variant */
+  .loading-text {
+    @apply inline-flex items-center gap-2 cursor-wait;
+  }
 
-  /* Button Hover/Focus/Disabled - FIXED: Icon नमाधुरो हुने */
-  /* OPTION 1: Background color मात्र change गर्ने (Recommended) */
-  .filled:hover { 
-    background-color: color-mix(in srgb, currentColor 90%, transparent); 
+  .loading-text::after {
+    content: none !important;
+  }
+
+  .loading-spinner {
+    @apply inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid;
+    border-top-color: transparent !important;
+    border-radius: 50%;
+    animation: dolphin-spin 0.75s linear infinite;
+  }
+
+  /* Size specific loading spinners */
+  .btn-xs.loading::after,
+  .btn-xs .loading-spinner {
+    width: 0.875em;
+    height: 0.875em;
+    border-width: 1.5px;
+  }
+
+  .btn-sm.loading::after,
+  .btn-sm .loading-spinner {
+    width: 1em;
+    height: 1em;
+    border-width: 1.75px;
+  }
+
+  .btn-md.loading::after,
+  .btn-md .loading-spinner {
+    width: 1.25em;
+    height: 1.25em;
+    border-width: 2px;
+  }
+
+  .btn-lg.loading::after,
+  .btn-lg .loading-spinner {
+    width: 1.5em;
+    height: 1.5em;
+    border-width: 2.5px;
+  }
+
+  .btn-xl.loading::after,
+  .btn-xl .loading-spinner {
+    width: 1.75em;
+    height: 1.75em;
+    border-width: 3px;
+  }
+
+  /* Disable hover effects during loading */
+  .loading:hover {
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Loading spinner animation */
+  @keyframes dolphin-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ===== Solid Color Buttons (NO GRADIENT) ===== */
+  .primary.filled { background-color: var(--color-primary); color: var(--color-text-light); }
+  .primary.outlined { border: 2px solid var(--color-primary); color: var(--color-primary); }
+  .primary.plain { color: var(--color-primary); }
+
+  .secondary.filled { background-color: var(--color-secondary); color: var(--color-text-light); }
+  .secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-secondary); }
+  .secondary.plain { color: var(--color-secondary); }
+
+  .success.filled { background-color: var(--color-success); color: var(--color-text-light); }
+  .success.outlined { border: 2px solid var(--color-success); color: var(--color-success); }
+  .success.plain { color: var(--color-success); }
+
+  .warning.filled { background-color: var(--color-warning); color: var(--color-text-light); }
+  .warning.outlined { border: 2px solid var(--color-warning); color: var(--color-warning); }
+  .warning.plain { color: var(--color-warning); }
+
+  .danger.filled { background-color: var(--color-danger); color: var(--color-text-light); }
+  .danger.outlined { border: 2px solid var(--color-danger); color: var(--color-danger); }
+  .danger.plain { color: var(--color-danger); }
+
+  .info.filled { background-color: var(--color-info); color: var(--color-text-light); }
+  .info.outlined { border: 2px solid var(--color-info); color: var(--color-info); }
+  .info.plain { color: var(--color-info); }
+
+  /* ===== Button Hover States (Solid Colors Only) ===== */
+  
+  /* Filled buttons hover */
+  .primary.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-primary) 80%, black); 
+  }
+  .secondary.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-secondary) 80%, black); 
+  }
+  .success.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-success) 80%, black); 
+  }
+  .warning.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-warning) 80%, black); 
+  }
+  .danger.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-danger) 80%, black); 
+  }
+  .info.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-info) 80%, black); 
   }
   
-  .outlined:hover { 
-    background-color: color-mix(in srgb, currentColor 10%, transparent); 
+  /* Outlined buttons hover */
+  .primary.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); 
+  }
+  .secondary.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-secondary) 10%, transparent); 
+  }
+  .success.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-success) 10%, transparent); 
+  }
+  .warning.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-warning) 10%, transparent); 
+  }
+  .danger.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-danger) 10%, transparent); 
+  }
+  .info.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-info) 10%, transparent); 
   }
   
-  .plain:hover { 
-    background-color: color-mix(in srgb, currentColor 5%, transparent); 
+  /* Plain buttons hover */
+  .primary.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-primary) 5%, transparent); 
+  }
+  .secondary.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-secondary) 5%, transparent); 
+  }
+  .success.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-success) 5%, transparent); 
+  }
+  .warning.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-warning) 5%, transparent); 
+  }
+  .danger.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-danger) 5%, transparent); 
+  }
+  .info.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-info) 5%, transparent); 
   }
 
-  /* OPTION 2: Filter use गर्ने (alternative) */
-  /* .filled:hover, .outlined:hover, .plain:hover { 
-    filter: brightness(0.95); 
-  } */
-
-  /* Remove Tailwind ring to prevent double ring */
+  /* Focus and disabled states */
   .filled:focus-visible,
   .outlined:focus-visible,
   .plain:focus-visible {
     outline: 2px solid var(--color-border);
     outline-offset: 2px;
-    box-shadow: none; /* no glow */
+    box-shadow: none;
   }
 
   .filled:disabled,
@@ -69,7 +222,14 @@
     @apply opacity-50 cursor-not-allowed;
   }
 
-  /* ===== Circle Buttons ===== */
+  /* ===== Button Sizes ===== */
+  .btn-xs { @apply px-2 py-1 text-xs; }
+  .btn-sm { @apply px-3 py-1.5 text-sm; }
+  .btn-md { @apply px-4 py-2 text-base; }
+  .btn-lg { @apply px-6 py-3 text-lg; }
+  .btn-xl { @apply px-8 py-4 text-xl; }
+
+  /* ===== Circle Buttons (NO GRADIENT) ===== */
   .circle {
     @apply rounded-full shadow-md hover:shadow-lg inline-flex items-center justify-center select-none transition-shadow duration-200 cursor-pointer;
     background-color: transparent;
@@ -80,19 +240,58 @@
   .circle.md { @apply w-12 h-12 text-base; }
   .circle.lg { @apply w-16 h-16 text-lg; }
 
-  .circle.primary.filled { background-color: var(--color-primary); color: var(--color-text); }
-  .circle.secondary.filled { background-color: var(--color-secondary); color: var(--color-text); }
-  .circle.success.filled { background-color: var(--color-success); color: var(--color-text); }
-  .circle.warning.filled { background-color: var(--color-warning); color: var(--color-text); }
-  .circle.danger.filled { background-color: var(--color-danger); color: var(--color-text); }
-  .circle.info.filled { background-color: var(--color-info); color: var(--color-text); }
+  /* Circle button loading */
+  .circle.loading {
+    @apply relative cursor-wait;
+  }
 
-  .circle.primary.outlined { border: 2px solid var(--color-primary); color: var(--color-text); }
-  .circle.secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-text); }
-  .circle.success.outlined { border: 2px solid var(--color-success); color: var(--color-text); }
-  .circle.warning.outlined { border: 2px solid var(--color-warning); color: var(--color-text); }
-  .circle.danger.outlined { border: 2px solid var(--color-danger); color: var(--color-text); }
-  .circle.info.outlined { border: 2px solid var(--color-info); color: var(--color-text); }
+  .circle.loading:not(.loading-text) {
+    color: transparent !important;
+  }
+
+  .circle.loading:not(.loading-text) > *:not(.loading-spinner) {
+    @apply opacity-0;
+  }
+
+  .circle.loading::after {
+    content: '';
+    @apply absolute inset-0 m-auto;
+    width: 1em;
+    height: 1em;
+    border: 2px solid;
+    border-top-color: transparent !important;
+    border-radius: 50%;
+    animation: dolphin-spin 0.75s linear infinite;
+  }
+
+  /* Circle loading sizes */
+  .circle.sm.loading::after {
+    width: 0.75em;
+    height: 0.75em;
+  }
+  .circle.md.loading::after {
+    width: 1em;
+    height: 1em;
+  }
+  .circle.lg.loading::after {
+    width: 1.25em;
+    height: 1.25em;
+  }
+
+  /* Circle solid colors */
+  .circle.primary.filled { background-color: var(--color-primary); color: var(--color-text-light); }
+  .circle.secondary.filled { background-color: var(--color-secondary); color: var(--color-text-light); }
+  .circle.success.filled { background-color: var(--color-success); color: var(--color-text-light); }
+  .circle.warning.filled { background-color: var(--color-warning); color: var(--color-text-light); }
+  .circle.danger.filled { background-color: var(--color-danger); color: var(--color-text-light); }
+  .circle.info.filled { background-color: var(--color-info); color: var(--color-text-light); }
+
+  .circle.primary.outlined { border: 2px solid var(--color-primary); color: var(--color-primary); }
+  .circle.secondary.outlined { border: 2px solid var(--color-secondary); color: var(--color-secondary); }
+  .circle.success.outlined { border: 2px solid var(--color-success); color: var(--color-success); }
+  .circle.warning.outlined { border: 2px solid var(--color-warning); color: var(--color-warning); }
+  .circle.danger.outlined { border: 2px solid var(--color-danger); color: var(--color-danger); }
+  .circle.info.outlined { border: 2px solid var(--color-info); color: var(--color-info); }
 
   .circle.primary.plain,
   .circle.secondary.plain,
@@ -101,185 +300,66 @@
   .circle.danger.plain,
   .circle.info.plain {
     background-color: transparent;
-    color: var(--color-text);
+    color: var(--color-primary);
   }
 
-  /* Circle buttons hover - FIXED */
-  .circle.filled:hover { 
-    background-color: color-mix(in srgb, currentColor 90%, transparent); 
+  /* Circle button hover states */
+  .circle.primary.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-primary) 80%, black); 
+  }
+  .circle.secondary.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-secondary) 80%, black); 
+  }
+  .circle.success.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-success) 80%, black); 
+  }
+  .circle.warning.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-warning) 80%, black); 
+  }
+  .circle.danger.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-danger) 80%, black); 
+  }
+  .circle.info.filled:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-info) 80%, black); 
   }
   
-  .circle.outlined:hover { 
-    background-color: color-mix(in srgb, currentColor 10%, transparent); 
+  .circle.primary.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); 
+  }
+  .circle.secondary.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-secondary) 10%, transparent); 
+  }
+  .circle.success.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-success) 10%, transparent); 
+  }
+  .circle.warning.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-warning) 10%, transparent); 
+  }
+  .circle.danger.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-danger) 10%, transparent); 
+  }
+  .circle.info.outlined:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-info) 10%, transparent); 
   }
   
-  .circle.plain:hover { 
-    background-color: color-mix(in srgb, currentColor 5%, transparent); 
+  .circle.primary.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-primary) 5%, transparent); 
+  }
+  .circle.secondary.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-secondary) 5%, transparent); 
+  }
+  .circle.success.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-success) 5%, transparent); 
+  }
+  .circle.warning.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-warning) 5%, transparent); 
+  }
+  .circle.danger.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-danger) 5%, transparent); 
+  }
+  .circle.info.plain:hover:not(.loading) { 
+    background-color: color-mix(in srgb, var(--color-info) 5%, transparent); 
   }
   
   .circle:disabled { @apply opacity-50 cursor-not-allowed; }
-  
-  /* ===== Button Sizes ===== */
-  .btn-xs { @apply px-2 py-1 text-xs; }
-  .btn-sm { @apply px-3 py-1.5 text-sm; }
-  .btn-md { @apply px-4 py-2 text-base; }
-  .btn-lg { @apply px-6 py-3 text-lg; }
-  .btn-xl { @apply px-8 py-4 text-xl; }
-}
-
-/* ===== Global Glowing Effects (Fixed) ===== */
-.glow {
-  @apply transition-all duration-300;
-}
-
-/* Base glow effects for all glow elements */
-.glow:hover {
-  box-shadow: var(--glow-primary);
-}
-
-/* Specific elements with enhanced glow */
-.glow.btn:hover,
-.glow[class*="btn"]:hover {
-  box-shadow: 0 0 20px 5px var(--glow-color, var(--color-primary))/25;
-}
-
-.glow.card:hover,
-.glow[class*="card"]:hover,
-.glow[class*="chart"]:hover {
-  box-shadow: 0 0 25px 8px var(--glow-color, var(--color-primary))/15;
-}
-
-/* Input focus glow */
-.glow.input:focus,
-.glow[type="text"]:focus,
-.glow[type="email"]:focus,
-.glow[type="password"]:focus,
-.glow.floatinglabel-input:focus,
-.glow.standardlabel-input:focus {
-  box-shadow: var(--glow-input) !important;
-}
-
-/* Color-specific glow variables */
-.glow.primary {
-  --glow-color: var(--color-primary);
-}
-
-.glow.secondary {
-  --glow-color: var(--color-secondary);
-}
-
-.glow.success {
-  --glow-color: var(--color-success);
-}
-
-.glow.warning {
-  --glow-color: var(--color-warning);
-}
-
-.glow.danger {
-  --glow-color: var(--color-danger);
-}
-
-.glow.info {
-  --glow-color: var(--color-info);
-}
-
-/* Dolphin-specific glow effects */
-.dolphin-glow {
-  box-shadow: var(--glow-primary);
-}
-
-.dolphin-glow-success {
-  box-shadow: var(--glow-success);
-}
-
-.dolphin-glow-warning {
-  box-shadow: var(--glow-warning);
-}
-
-.dolphin-glow-danger {
-  box-shadow: var(--glow-danger);
-}
-
-.dolphin-glow-info {
-  box-shadow: var(--glow-info);
-}
-
-.dolphin-glow-secondary {
-  box-shadow: var(--glow-secondary);
-}
-
-/* Intensity variants */
-.glow.strong {
-  --glow-intensity: 0.4;
-  --glow-spread: 25px;
-}
-
-.glow.strong:hover {
-  box-shadow: 0 0 35px 12px var(--glow-color, var(--color-primary))/25;
-}
-
-.glow.subtle {
-  --glow-intensity: 0.15;
-  --glow-spread: 10px;
-}
-
-.glow.subtle:hover {
-  box-shadow: 0 0 15px 3px var(--glow-color, var(--color-primary))/15;
-}
-
-/* Pulsing glow - FIXED */
-.glow.pulse {
-  animation: dolphin-glow-pulse 3s ease-in-out infinite;
-}
-
-@keyframes dolphin-glow-pulse {
-  0%, 100% { 
-    box-shadow: 0 0 5px 2px color-mix(in oklch, var(--glow-color, var(--color-primary)) 15%, transparent);
-  }
-  50% { 
-    box-shadow: 0 0 20px 8px color-mix(in oklch, var(--glow-color, var(--color-primary)) 25%, transparent);
-  }
-}
-
-/* Wave glow - FIXED */
-.glow.wave {
-  animation: ocean-wave 4s ease-in-out infinite;
-}
-
-@keyframes ocean-wave {
-  0%, 100% { 
-    box-shadow: 
-      0 0 10px 3px color-mix(in oklch, var(--color-primary) 20%, transparent),
-      0 0 20px 6px color-mix(in oklch, var(--color-info) 15%, transparent);
-  }
-  50% { 
-    box-shadow: 
-      0 0 15px 5px color-mix(in oklch, var(--color-primary) 25%, transparent),
-      0 0 25px 8px color-mix(in oklch, var(--color-info) 20%, transparent);
-  }
-}
-
-/* Ensure glow works on focus for inputs */
-.floatinglabel-input.glow:focus,
-.standardlabel-input.glow:focus {
-  box-shadow: var(--glow-input) !important;
-}
-
-/* Remove any conflicting shadows from base components */
-.chart-card,
-.card {
-  box-shadow: none !important;
-}
-
-/* Force glow to show on hover */
-.glow:hover {
-  transform: translateZ(0); /* Force hardware acceleration */
-}
-
-/* Responsive fixes */
-@media (max-width: 768px) {
-  .glow:hover {
-    box-shadow: 0 0 15px 4px var(--glow-color, var(--color-primary))/15;
-  }
 }
